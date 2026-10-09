@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GBMB — Gaana Bajao, Mood Bachao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#08080f;color:#f0f0f5;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(139,92,246,.3);border-radius:2px}
+.hsb{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:8px}
+.hsb::-webkit-scrollbar{display:none}
+.glass{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08)}
+.glassd{background:rgba(8,8,15,.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.07)}
+.gt{background:linear-gradient(135deg,#8B5CF6,#EC4899,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+@keyframes f1{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-22px) rotate(-8deg)}}
+@keyframes f2{0%,100%{transform:translateY(0) rotate(6deg)}50%{transform:translateY(-16px) rotate(6deg)}}
+@keyframes f3{0%,100%{transform:translateY(0) rotate(-14deg)}33%{transform:translateY(-26px) rotate(-14deg)}66%{transform:translateY(-10px) rotate(-14deg)}}
+@keyframes f4{0%,100%{transform:translateY(0) rotate(10deg)}50%{transform:translateY(-18px) rotate(10deg)}}
+@keyframes f5{0%,100%{transform:translateY(0) rotate(-5deg)}40%{transform:translateY(-24px) rotate(-5deg)}80%{transform:translateY(-8px) rotate(-5deg)}}
+@keyframes f6{0%,100%{transform:translateY(0) rotate(15deg)}50%{transform:translateY(-14px) rotate(15deg)}}
+.fa1{animation:f1 6s ease-in-out infinite}
+.fa2{animation:f2 8s ease-in-out infinite;animation-delay:-2s}
+.fa3{animation:f3 7s ease-in-out infinite;animation-delay:-4s}
+.fa4{animation:f4 9s ease-in-out infinite;animation-delay:-1s}
+.fa5{animation:f5 6.5s ease-in-out infinite;animation-delay:-3s}
+.fa6{animation:f6 7.5s ease-in-out infinite;animation-delay:-5s}
+@keyframes pglow{0%,100%{box-shadow:0 0 24px rgba(139,92,246,.4)}50%{box-shadow:0 0 48px rgba(139,92,246,.75),0 0 90px rgba(236,72,153,.3)}}
+.pglow{animation:pglow 3s ease-in-out infinite}
+@keyframes aup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes afd{from{opacity:0}to{opacity:1}}
+@keyframes asc{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.aup{animation:aup .5s ease forwards}
+.afd{animation:afd .4s ease forwards}
+.asc{animation:asc .3s ease forwards}
+@keyframes wave{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+.wb{width:3px;background:linear-gradient(to top,#8B5CF6,#EC4899);border-radius:2px;animation:wave .8s ease-in-out infinite}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.sk{background:linear-gradient(90deg,rgba(255,255,255,.04) 25%,rgba(255,255,255,.09) 50%,rgba(255,255,255,.04) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px}
+@keyframes twinkle{0%,100%{opacity:.12}50%{opacity:.85}}
+.star{animation:twinkle var(--d,3s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+.chov{transition:transform .2s ease,box-shadow .2s ease}.chov:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.45)}
+.mc{transition:all .3s cubic-bezier(.34,1.56,.64,1)}.mc:hover{transform:translateY(-8px) scale(1.025)}
+.bp{transition:transform .1s ease,opacity .1s ease}.bp:active{transform:scale(.96);opacity:.9}
+.ni{transition:all .2s ease;border:none;background:transparent;width:100%;cursor:pointer;text-align:left}.ni:hover{background:rgba(139,92,246,.1);color:#A78BFA}
+.ni.act{background:rgba(139,92,246,.15);color:#A78BFA;border-left:2px solid #8B5CF6 !important}
+input:not([type=range]){background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.1)!important;color:#fff!important;border-radius:12px!important;padding:12px 16px!important;font-family:'DM Sans',sans-serif!important;font-size:15px!important;transition:border-color .2s,box-shadow .2s!important;width:100%!important;outline:none}
+input:not([type=range]):focus{border-color:rgba(139,92,246,.5)!important;box-shadow:0 0 0 3px rgba(139,92,246,.15)!important}
+input:not([type=range])::placeholder{color:rgba(240,240,245,.35)!important}
+.pbar{-webkit-appearance:none;appearance:none;height:100%!important;border-radius:0!important;background:transparent!important;border:none!important;padding:0!important;margin:0!important;cursor:pointer;outline:none;width:100%!important;position:absolute;top:0;left:0}
+.pbar::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 0 8px rgba(0,0,0,.6);opacity:1;transition:transform .15s}
+.pbar:hover::-webkit-slider-thumb{transform:scale(1.25)}
+.pbar::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 0 8px rgba(0,0,0,.6);border:none}
+.vbar{-webkit-appearance:none;appearance:none;height:4px!important;border-radius:2px!important;background:rgba(255,255,255,.15)!important;border:none!important;padding:0!important;margin:0!important;cursor:pointer;outline:none;width:80px!important}
+.vbar::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 0 4px rgba(0,0,0,.5)}
+.vbar::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:#fff;cursor:pointer;border:none}
+*:focus-visible{outline:2px solid rgba(139,92,246,.8);outline-offset:2px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:500}
+.orb{filter:blur(60px);opacity:.22;border-radius:50%;position:absolute;pointer-events:none}
+@keyframes orbf{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(25px,-25px) scale(1.08)}66%{transform:translate(-18px,18px) scale(.93)}}
+.orb{animation:orbf 20s ease-in-out infinite}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useRef,useContext,createContext,useCallback,useMemo}=React;
+
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const CAMPUSES=[
+  {id:'jecrc',name:'JECRC University',city:'Jaipur',short:'JECRC'},
+  {id:'mnit',name:'MNIT Jaipur',city:'Jaipur',short:'MNIT'},
+  {id:'manipal',name:'Manipal University',city:'Jaipur',short:'Manipal'},
+  {id:'other',name:'Other College',city:'',short:'Other'},
+];
+const GENRES=['Bollywood','Punjabi','Hip-Hop','EDM','Indie','Lo-Fi','Rock','Classical'];
+const MOODS_LIST=['Happy','Chill','Energetic','Sad','Focus','Romantic','Sleep','Party'];
+const ME={Happy:'😊',Chill:'😌',Energetic:'⚡',Sad:'💙',Focus:'🎯',Romantic:'💕',Sleep:'🌙',Party:'🎉'};
+
+const ARTISTS=[
+  {id:1,name:'Arijit Singh',genre:'Bollywood',followers:'45.2M',img:'https://picsum.photos/seed/ar1/300/300',color:'#8B5CF6'},
+  {id:2,name:'AP Dhillon',genre:'Punjabi',followers:'12.8M',img:'https://picsum.photos/seed/ar2/300/300',color:'#EC4899'},
+  {id:3,name:'Anuv Jain',genre:'Indie',followers:'5.4M',img:'https://picsum.photos/seed/ar3/300/300',color:'#3B82F6'},
+  {id:4,name:'Prateek Kuhad',genre:'Indie',followers:'4.1M',img:'https://picsum.photos/seed/ar4/300/300',color:'#F97316'},
+  {id:5,name:'Shubh',genre:'Punjabi',followers:'8.9M',img:'https://picsum.photos/seed/ar5/300/300',color:'#06B6D4'},
+  {id:6,name:'Jubin Nautiyal',genre:'Bollywood',followers:'18.3M',img:'https://picsum.photos/seed/ar6/300/300',color:'#10B981'},
+  {id:7,name:'Kaifi Khalil',genre:'Indie',followers:'3.2M',img:'https://picsum.photos/seed/ar7/300/300',color:'#F59E0B'},
+  {id:8,name:'Nucleya',genre:'EDM',followers:'2.8M',img:'https://picsum.photos/seed/ar8/300/300',color:'#EF4444'},
+];
+
+const SONGS=[
+  {id:1,title:'Beedi Jalaile',artist:'Sunidhi Chauhan & Sukhwinder Singh',aId:6,album:'Omkara',genre:'Bollywood',dur:321,poster:'assets/posters/beedi.jpg',cover:'assets/posters/beedi.jpg',audio:'assets/songs/beedi.mp3',mood:['Party','Energetic','Happy'],hot:true,plays:'50.8M'},
+  {id:2,title:'Kesariya',artist:'Arijit Singh',aId:1,album:'Brahmastra',genre:'Bollywood',dur:258,poster:'assets/posters/kesariya.jpg',cover:'assets/posters/kesariya.jpg',audio:'assets/songs/kesariya.mp3',mood:['Romantic','Chill'],hot:true,plays:'45.2M'},
+  {id:3,title:'Heeriye',artist:'AP Dhillon',aId:2,album:'Hidden Gems',genre:'Punjabi',dur:195,poster:'assets/posters/heeriye.jpg',cover:'assets/posters/heeriye.jpg',audio:'assets/songs/heeriye.mp3',mood:['Happy','Energetic','Party'],hot:true,plays:'32.1M'},
+  {id:4,title:'Aaj Ki Raat',artist:'AR Rahman',aId:1,album:'Stree 2',genre:'Bollywood',dur:210,poster:'assets/posters/aaj-ki-raat.jpg',cover:'assets/posters/aaj-ki-raat.jpg',audio:'assets/songs/aaj-ki-raat.mp3',mood:['Party','Happy','Energetic'],hot:true,plays:'28.7M'},
+  {id:5,title:'One Love',artist:'AP Dhillon',aId:2,album:'Hidden Gems',genre:'Punjabi',dur:188,poster:'assets/posters/one-love.jpg',cover:'assets/posters/one-love.jpg',audio:'assets/songs/one-love.mp3',mood:['Romantic','Chill'],hot:true,plays:'22.4M'},
+  {id:6,title:'Apna Bana Le',artist:'Arijit Singh',aId:1,album:'Bhediya',genre:'Bollywood',dur:237,poster:'assets/posters/apna-bana-le.jpg',cover:'assets/posters/apna-bana-le.jpg',audio:'assets/songs/apna-bana-le.mp3',mood:['Romantic','Sad'],hot:true,plays:'19.8M'},
+  {id:7,title:'Baarish Ki Jaaye',artist:'B Praak',aId:6,album:'Single',genre:'Bollywood',dur:226,poster:'assets/posters/baarish-ki-jaaye.jpg',cover:'assets/posters/baarish-ki-jaaye.jpg',audio:'assets/songs/baarish-ki-jaaye.mp3',mood:['Sad','Chill','Romantic'],hot:false,plays:'15.3M'},
+  {id:8,title:'GUTS (Over Silence)',artist:'Anuv Jain',aId:3,album:'GUTS',genre:'Indie',dur:214,poster:'assets/posters/guts-over-silence.jpg',cover:'assets/posters/guts-over-silence.jpg',audio:'assets/songs/guts-over-silence.mp3',mood:['Chill','Focus','Sad'],hot:false,plays:'8.2M'},
+  {id:9,title:'Cold/Mess',artist:'Prateek Kuhad',aId:4,album:'Cold Mess',genre:'Indie',dur:198,poster:'assets/posters/cold-mess.jpg',cover:'assets/posters/cold-mess.jpg',audio:'assets/songs/cold-mess.mp3',mood:['Chill','Sad','Focus'],hot:false,plays:'7.9M'},
+  {id:10,title:'Insane',artist:'AP Dhillon',aId:2,album:'Hidden Gems',genre:'Punjabi',dur:172,poster:'assets/posters/insane.jpg',cover:'assets/posters/insane.jpg',audio:'assets/songs/insane.mp3',mood:['Energetic','Party','Happy'],hot:false,plays:'18.4M'},
+  {id:11,title:'Caffeine',artist:'Anuv Jain',aId:3,album:'Caffeine',genre:'Indie',dur:201,poster:'assets/posters/caffeine.jpg',cover:'assets/posters/caffeine.jpg',audio:'assets/songs/caffeine.mp3',mood:['Happy','Chill'],hot:false,plays:'6.1M'},
+  {id:12,title:'Excuses',artist:'AP Dhillon',aId:2,album:'Hidden Gems',genre:'Punjabi',dur:183,poster:'assets/posters/excuses.jpg',cover:'assets/posters/excuses.jpg',audio:'assets/songs/excuses.mp3',mood:['Sad','Chill'],hot:false,plays:'25.6M'},
+  {id:13,title:'Brown Munde',artist:'AP Dhillon',aId:2,album:'Brownie',genre:'Punjabi',dur:196,poster:'assets/posters/brown-munde.jpg',cover:'assets/posters/brown-munde.jpg',audio:'assets/songs/brown-munde.mp3',mood:['Energetic','Party','Happy'],hot:false,plays:'30.2M'},
+  {id:14,title:'Pasoori',artist:'Ali Sethi ft. Shae Gill',aId:7,album:'Coke Studio',genre:'Indie',dur:265,poster:'assets/posters/pasoori.jpg',cover:'assets/posters/pasoori.jpg',audio:'assets/songs/pasoori.mp3',mood:['Romantic','Happy','Chill'],hot:false,plays:'40.1M'},
+  {id:15,title:'Lo-Fi Bollywood Mix',artist:'Nucleya',aId:8,album:'Lo-Fi Sessions',genre:'Lo-Fi',dur:3200,poster:'assets/posters/lofi-bollywood-mix.jpg',cover:'assets/posters/lofi-bollywood-mix.jpg',audio:'assets/songs/lofi-bollywood-mix.mp3',mood:['Focus','Chill','Sleep'],hot:false,plays:'12.3M'},
+  {id:16,title:'Mumbai 3 AM',artist:'Nucleya',aId:8,album:'Bass Rani',genre:'EDM',dur:248,poster:'assets/posters/mumbai-3am.jpg',cover:'assets/posters/mumbai-3am.jpg',audio:'assets/songs/mumbai-3am.mp3',mood:['Energetic','Party'],hot:false,plays:'9.7M'},
+  {id:17,title:'Ranjha',artist:'Shershaah OST',aId:1,album:'Shershaah',genre:'Bollywood',dur:229,poster:'assets/posters/ranjha.jpg',cover:'assets/posters/ranjha.jpg',audio:'assets/songs/ranjha.mp3',mood:['Romantic','Sad'],hot:false,plays:'35.4M'},
+  {id:18,title:'Husn',artist:'Anuv Jain',aId:3,album:'Husn',genre:'Indie',dur:234,poster:'assets/posters/husn.jpg',cover:'assets/posters/husn.jpg',audio:'assets/songs/husn.mp3',mood:['Romantic','Chill'],hot:false,plays:'11.2M'},
+  {id:19,title:'90s Punjabi Mashup',artist:'DJ Chetas',aId:8,album:'Mashup Series',genre:'Punjabi',dur:1200,poster:'assets/posters/90s-punjabi-mashup.jpg',cover:'assets/posters/90s-punjabi-mashup.jpg',audio:'assets/songs/90s-punjabi-mashup.mp3',mood:['Party','Happy','Energetic'],hot:false,plays:'8.8M'},
+  {id:20,title:'Tere Vaaste',artist:'Varun Jain',aId:6,album:'Zara Hatke',genre:'Bollywood',dur:215,poster:'assets/posters/tere-vaaste.jpg',cover:'assets/posters/tere-vaaste.jpg',audio:'assets/songs/tere-vaaste.mp3',mood:['Romantic','Happy'],hot:false,plays:'14.5M'},
+  {id:21,title:'Kho Gaye Hum Kahan',artist:'Prateek Kuhad',aId:4,album:'Jee Le Zaraa',genre:'Indie',dur:221,poster:'assets/posters/kho-gaye-hum-kahan.jpg',cover:'assets/posters/kho-gaye-hum-kahan.jpg',audio:'assets/songs/kho-gaye-hum-kahan.mp3',mood:['Chill','Happy','Romantic'],hot:false,plays:'13.1M'},
+  {id:22,title:'Night Owl',artist:'Nucleya',aId:8,album:'Bass Rani',genre:'Lo-Fi',dur:189,poster:'assets/posters/night-owl.jpg',cover:'assets/posters/night-owl.jpg',audio:'assets/songs/night-owl.mp3',mood:['Focus','Sleep','Chill'],hot:false,plays:'5.4M'},
+  {id:23,title:'Tum Kab Aoge',artist:'Kaifi Khalil',aId:7,album:'Kahani Suno',genre:'Indie',dur:207,poster:'assets/posters/tum-kab-aoge.jpg',cover:'assets/posters/tum-kab-aoge.jpg',audio:'assets/songs/tum-kab-aoge.mp3',mood:['Sad','Romantic','Chill'],hot:false,plays:'16.8M'},
+  {id:24,title:'Ve Haaniyaan',artist:'AP Dhillon',aId:2,album:'Hidden Gems',genre:'Punjabi',dur:178,poster:'assets/posters/ve-haaniyaan.jpg',cover:'assets/posters/ve-haaniyaan.jpg',audio:'assets/songs/ve-haaniyaan.mp3',mood:['Sad','Romantic'],hot:false,plays:'10.9M'},
+  {id:25,title:'Subha Hone Na De',artist:'Mika Singh',aId:6,album:'Cocktail',genre:'Bollywood',dur:192,poster:'assets/posters/subha-hone-na-de.jpg',cover:'assets/posters/subha-hone-na-de.jpg',audio:'assets/songs/subha-hone-na-de.mp3',mood:['Party','Happy','Energetic'],hot:false,plays:'22.3M'},
+  {id:26,title:'Bheegi Bheegi',artist:'Jubin Nautiyal',aId:6,album:'Single',genre:'Bollywood',dur:218,poster:'assets/posters/bheegi-bheegi.jpg',cover:'assets/posters/bheegi-bheegi.jpg',audio:'assets/songs/bheegi-bheegi.mp3',mood:['Romantic','Sad','Chill'],hot:false,plays:'12.7M'},
+  {id:27,title:'Lo-Fi Study Beats',artist:'Nucleya',aId:8,album:'Study Sessions',genre:'Lo-Fi',dur:204,poster:'assets/posters/lofi-study-beats.jpg',cover:'assets/posters/lofi-study-beats.jpg',audio:'assets/songs/lofi-study-beats.mp3',mood:['Chill','Focus'],hot:false,plays:'4.2M'},
+  {id:28,title:'Ik Vaari Aa',artist:'Arijit Singh',aId:1,album:'Raabta',genre:'Bollywood',dur:241,poster:'assets/posters/ik-vaari-aa.jpg',cover:'assets/posters/ik-vaari-aa.jpg',audio:'assets/songs/ik-vaari-aa.mp3',mood:['Romantic','Sad'],hot:false,plays:'28.9M'},
+  {id:29,title:'Still Rollin',artist:'Shubh',aId:5,album:'Still Rollin',genre:'Punjabi',dur:186,poster:'assets/posters/still-rollin.jpg',cover:'assets/posters/still-rollin.jpg',audio:'assets/songs/still-rollin.mp3',mood:['Happy','Energetic'],hot:false,plays:'7.6M'},
+  {id:30,title:'Dil Chahta Hai',artist:'Shankar-Ehsaan-Loy',aId:1,album:'Dil Chahta Hai',genre:'Bollywood',dur:287,poster:'assets/posters/dil-chahta-hai.jpg',cover:'assets/posters/dil-chahta-hai.jpg',audio:'assets/songs/dil-chahta-hai.mp3',mood:['Happy','Chill','Party'],hot:false,plays:'35.8M'},
+  {id:31,title:'Raataan Lambiyan',artist:'Jubin Nautiyal',aId:6,album:'Shershaah',genre:'Bollywood',dur:208,poster:'assets/posters/raataan-lambiyan.jpg',cover:'assets/posters/raataan-lambiyan.jpg',audio:'assets/songs/raataan-lambiyan.mp3',mood:['Romantic','Chill','Sleep'],hot:false,plays:'38.4M'},
+];
+
+const PLAYLISTS=[
+  {id:1,name:'Morning Motivation',desc:'Start your day with pure energy',cover:'https://picsum.photos/seed/pl1/400/400',songs:[9,12,2,28,1,19,20],color:'#F97316',em:'☀️'},
+  {id:2,name:'Late Night Vibes',desc:'Unwind after a long day',cover:'https://picsum.photos/seed/pl2/400/400',songs:[11,7,8,21,22,25,6],color:'#3B82F6',em:'🌙'},
+  {id:3,name:'Study Mode',desc:'Stay focused and in the zone',cover:'https://picsum.photos/seed/pl3/400/400',songs:[14,21,26,7,8,10,20],color:'#8B5CF6',em:'📚'},
+  {id:4,name:'Hostel Nights',desc:'College memories made at midnight',cover:'https://picsum.photos/seed/pl4/400/400',songs:[12,18,24,9,3,2,15],color:'#EC4899',em:'🏠'},
+  {id:5,name:'Road Trip',desc:'Hit the road with travel anthems',cover:'https://picsum.photos/seed/pl5/400/400',songs:[29,13,1,20,4,5,10],color:'#06B6D4',em:'🚗'},
+  {id:6,name:'Bollywood Beats',desc:'Best of Hindi cinema all time',cover:'https://picsum.photos/seed/pl6/400/400',songs:[1,5,16,27,30,19,6,25],color:'#EF4444',em:'🎬'},
+  {id:7,name:'Punjabi Party',desc:'Bhangra vibes all day everyday',cover:'https://picsum.photos/seed/pl7/400/400',songs:[2,12,9,18,11,23,28],color:'#F59E0B',em:'🎉'},
+  {id:8,name:'Lo-Fi Focus',desc:'Beats to study and relax to',cover:'https://picsum.photos/seed/pl8/400/400',songs:[14,21,26,7,8],color:'#10B981',em:'☕'},
+  {id:9,name:'Weekend Madness',desc:'When the weekend hits different',cover:'https://picsum.photos/seed/pl9/400/400',songs:[3,15,24,12,18,9,2,29],color:'#8B5CF6',em:'🔥'},
+];
+
+const MOODS=[
+  {id:'happy',label:'Happy',em:'😊',grad:'linear-gradient(135deg,#F59E0B,#F97316)',color:'#F59E0B',desc:'Upbeat feel-good vibes',songs:[10,19,20,29,2,13]},
+  {id:'chill',label:'Chill',em:'😌',grad:'linear-gradient(135deg,#3B82F6,#06B6D4)',color:'#3B82F6',desc:'Relax and unwind',songs:[7,8,17,11,14,26,21]},
+  {id:'energetic',label:'Energetic',em:'⚡',grad:'linear-gradient(135deg,#F97316,#EF4444)',color:'#EF4444',desc:'High energy pump-up',songs:[2,9,12,15,3,24]},
+  {id:'sad',label:'Sad',em:'💙',grad:'linear-gradient(135deg,#6366F1,#3B82F6)',color:'#6366F1',desc:'Feel the feels',songs:[6,11,22,5,23,27,16]},
+  {id:'focus',label:'Focus',em:'🎯',grad:'linear-gradient(135deg,#8B5CF6,#6366F1)',color:'#8B5CF6',desc:'Deep concentration mode',songs:[14,21,7,8,26,10]},
+  {id:'romantic',label:'Romantic',em:'💕',grad:'linear-gradient(135deg,#EC4899,#8B5CF6)',color:'#EC4899',desc:'Love is in the air',songs:[1,4,13,17,19,25,30,27]},
+  {id:'sleep',label:'Sleep',em:'🌙',grad:'linear-gradient(135deg,#1E1B4B,#3730A3)',color:'#4338CA',desc:'Drift into dreamland',songs:[21,14,30,6,26,8]},
+  {id:'party',label:'Party',em:'🎉',grad:'linear-gradient(135deg,#EC4899,#F97316)',color:'#EC4899',desc:'Turn it up to 11',songs:[3,15,24,12,18,9,2,29]},
+];
+
+const MSUBS={
+  energetic:[{n:'Workout Beats',em:'💪',c:15,color:'#EF4444'},{n:'Bollywood Bangers',em:'🎬',c:20,color:'#F97316'},{n:'Punjabi Hits',em:'🎵',c:18,color:'#F59E0B'},{n:'EDM Boost',em:'⚡',c:12,color:'#EC4899'}],
+  party:[{n:'Hostel Anthem',em:'🏠',c:16,color:'#EC4899'},{n:'DJ Night Mix',em:'🎧',c:14,color:'#8B5CF6'},{n:'Bhangra Beats',em:'🕺',c:12,color:'#F97316'},{n:'Top 40 Hits',em:'🔥',c:20,color:'#EF4444'}],
+  chill:[{n:'Late Night Indie',em:'🌃',c:15,color:'#3B82F6'},{n:'Rainy Day Mix',em:'🌧️',c:12,color:'#06B6D4'},{n:'Sunset Drive',em:'🌅',c:14,color:'#F97316'},{n:'Coffee Shop',em:'☕',c:18,color:'#10B981'}],
+  focus:[{n:'Deep Work',em:'💻',c:20,color:'#8B5CF6'},{n:'Lo-Fi Beats',em:'🎵',c:25,color:'#6366F1'},{n:'Classical Focus',em:'🎻',c:15,color:'#14B8A6'},{n:'Study Jazz',em:'🎷',c:18,color:'#F59E0B'}],
+  happy:[{n:'Morning Rush',em:'☀️',c:18,color:'#F59E0B'},{n:'Feel Good Mix',em:'😊',c:22,color:'#F97316'},{n:'Bollywood Hits',em:'🎬',c:16,color:'#EF4444'},{n:'Indie Pop',em:'🎸',c:14,color:'#8B5CF6'}],
+  romantic:[{n:'Date Night',em:'🕯️',c:12,color:'#EC4899'},{n:'Old School Romance',em:'💌',c:15,color:'#8B5CF6'},{n:'Bollywood Love',em:'🎬',c:18,color:'#EF4444'},{n:'Acoustic Feelings',em:'🎸',c:10,color:'#F97316'}],
+  sad:[{n:'Heartbreak Hotel',em:'💔',c:14,color:'#6366F1'},{n:'Rainy Afternoon',em:'🌧️',c:12,color:'#3B82F6'},{n:'Late Night Thoughts',em:'🌙',c:16,color:'#4338CA'},{n:'Melancholy Indie',em:'🎸',c:10,color:'#8B5CF6'}],
+  sleep:[{n:'Deep Sleep',em:'😴',c:20,color:'#1E1B4B'},{n:'Ambient Drifts',em:'🌌',c:15,color:'#3730A3'},{n:'Rain Sounds',em:'🌧️',c:8,color:'#06B6D4'},{n:'Piano Dreams',em:'🎹',c:12,color:'#4338CA'}],
+};
+
+const EVENTS=[
+  {id:1,name:'DJ Night: Bass Drop',type:'DJ Night',campus:'jecrc',venue:'Open Air Theatre, JECRC',date:'2026-10-15',time:'8:00 PM',cover:'https://picsum.photos/seed/ev1/400/260',desc:'The biggest DJ Night of the semester! Top DJs from Delhi and Mumbai spinning the latest EDM bangers.',interested:342,cap:500,price:'Free for students',tags:['EDM','Party','DJ']},
+  {id:2,name:'Cultural Fest: Umang 2026',type:'Cultural Fest',campus:'mnit',venue:'Main Quadrangle, MNIT',date:'2026-10-20',time:'10:00 AM',cover:'https://picsum.photos/seed/ev2/400/260',desc:'Annual cultural extravaganza with dance, drama, music and celebrity performances across 3 days!',interested:1250,cap:2000,price:'₹200',tags:['Culture','Dance','Music']},
+  {id:3,name:'Open Mic Night',type:'Open Mic',campus:'manipal',venue:'Central Lawns, Manipal',date:'2026-10-12',time:'6:00 PM',cover:'https://picsum.photos/seed/ev3/400/260',desc:'Got talent? Showcase your skills at our monthly Open Mic. All genres welcome!',interested:156,cap:300,price:'Free',tags:['Open Mic','Live','Talent']},
+  {id:4,name:'Battle of Bands 2026',type:'Battle of Bands',campus:'jecrc',venue:'Amphitheatre, JECRC',date:'2026-10-25',time:'5:00 PM',cover:'https://picsum.photos/seed/ev4/400/260',desc:'8 campus bands battle for glory and a ₹50,000 prize pool. Vote for your favourite!',interested:478,cap:800,price:'₹50',tags:['Rock','Bands','Competition']},
+  {id:5,name:'Bollywood Night',type:'Bollywood Night',campus:'manipal',venue:'Sports Complex, Manipal',date:'2026-11-01',time:'7:00 PM',cover:'https://picsum.photos/seed/ev5/400/260',desc:'A night of Bollywood magic! Live performances, dance battles and surprise celebrity appearances.',interested:892,cap:1200,price:'₹150',tags:['Bollywood','Dance','Live']},
+  {id:6,name:'EDM Night: Frequency',type:'EDM Night',campus:'mnit',venue:'Indoor Stadium, MNIT',date:'2026-11-05',time:'9:00 PM',cover:'https://picsum.photos/seed/ev6/400/260',desc:'DJ Chetas headlines this massive EDM extravaganza. Campus lights go dark, lasers take over!',interested:634,cap:1000,price:'₹300',tags:['EDM','Electronic','DJ Chetas']},
+  {id:7,name:"Freshers' Party 2026",type:'Freshers Party',campus:'jecrc',venue:'Central Lawns, JECRC',date:'2026-10-10',time:'6:00 PM',cover:'https://picsum.photos/seed/ev7/400/260',desc:'Welcome to college life! DJ, live music, games and tons of surprises. Free entry for all first-years!',interested:723,cap:1000,price:'Free for freshers',tags:['Freshers','Party','Welcome']},
+];
+
+const HC=[
+  {id:1,src:'https://picsum.photos/seed/hc1/200/200',cls:'fa1',w:145,x:'6%',y:'18%',z:3,ang:-8},
+  {id:2,src:'https://picsum.photos/seed/hc2/200/200',cls:'fa2',w:120,x:'72%',y:'8%',z:2,ang:6},
+  {id:3,src:'https://picsum.photos/seed/hc3/200/200',cls:'fa3',w:165,x:'78%',y:'52%',z:4,ang:-14},
+  {id:4,src:'https://picsum.photos/seed/hc4/200/200',cls:'fa4',w:110,x:'3%',y:'62%',z:1,ang:10},
+  {id:5,src:'https://picsum.photos/seed/hc5/200/200',cls:'fa5',w:130,x:'42%',y:'72%',z:2,ang:-5},
+  {id:6,src:'https://picsum.photos/seed/hc6/200/200',cls:'fa6',w:118,x:'58%',y:'26%',z:3,ang:15},
+];
+
+// ─── CONTEXT ──────────────────────────────────────────────────────────────────
+const Ctx=createContext(null);
+const useApp=()=>useContext(Ctx);
+
+function AppProvider({children}){
+  const loadLS=()=>{try{const s=localStorage.getItem('gbmb3');return s?JSON.parse(s):null}catch{return null}};
+  const saved=loadLS();
+  const [S,setS]=useState(()=>({
+    user:null,page:'landing',params:{},obStep:0,obData:{name:'',campus:'',mood:'',genres:[]},
+    song:SONGS[0],playing:false,progress:0,volume:.7,
+    liked:{songs:[],playlists:[],events:[],artists:[]},
+    recent:[3,8,12,1,5],queue:[1,2,3,4,5],showQ:false,notif:null,
+    ...(saved||{}),playing:false,notif:null,showQ:false,
+  }));
+
+  const set=useCallback(fn=>{
+    setS(p=>{
+      const n=typeof fn==='function'?fn(p):{...p,...fn};
+      const{playing:_p,notif:_n,showQ:_q,...persist}=n;
+      try{localStorage.setItem('gbmb3',JSON.stringify(persist))}catch{}
+      return n;
+    });
+  },[]);
+
+  const audioRef=useRef(null);
+  if(!audioRef.current){
+    audioRef.current=new Audio();
+    audioRef.current.preload='metadata';
+  }
+
+  // Sync audio source and playback state
+  useEffect(()=>{
+    const a=audioRef.current;
+    if(!a||!S.song)return;
+    const src=S.song.audio||`assets/songs/${S.song.title.toLowerCase().replace(/[^a-z0-9]+/g,'-')}.mp3`;
+    if(a.getAttribute('data-src')!==src){
+      a.setAttribute('data-src',src);
+      a.src=src;
+      a.load();
+    }
+    if(S.playing){
+      const playPromise=a.play();
+      if(playPromise!==undefined){
+        playPromise.catch(e=>{
+          console.warn('Audio play error / autoplay restriction:',e);
+        });
+      }
+    }else{
+      a.pause();
+    }
+  },[S.song?.id,S.playing]);
+
+  // Volume control
+  useEffect(()=>{
+    if(audioRef.current){
+      audioRef.current.volume=Math.max(0,Math.min(1,S.volume));
+    }
+  },[S.volume]);
+
+  // Listen to audio timeupdate, loadedmetadata, and ended
+  useEffect(()=>{
+    const a=audioRef.current;
+    if(!a)return;
+
+    const onTimeUpdate=()=>{
+      set(p=>{
+        const curTime=Math.floor(a.currentTime);
+        if(p.progress===curTime)return p;
+        return{...p,progress:curTime};
+      });
+    };
+
+    const onLoadedMetadata=()=>{
+      if(a.duration&&!isNaN(a.duration)&&isFinite(a.duration)){
+        set(p=>({
+          ...p,
+          song:p.song?{...p.song,dur:Math.floor(a.duration)}:p.song
+        }));
+      }
+    };
+
+    const onEnded=()=>{
+      set(p=>{
+        const q=p.queue||[];const i=q.indexOf(p.song?.id);
+        const nid=q[i+1]||q[0];
+        const next=SONGS.find(s=>s.id===nid)||SONGS[0];
+        return{...p,song:next,progress:0,playing:true};
+      });
+    };
+
+    a.addEventListener('timeupdate',onTimeUpdate);
+    a.addEventListener('loadedmetadata',onLoadedMetadata);
+    a.addEventListener('ended',onEnded);
+
+    return()=>{
+      a.removeEventListener('timeupdate',onTimeUpdate);
+      a.removeEventListener('loadedmetadata',onLoadedMetadata);
+      a.removeEventListener('ended',onEnded);
+    };
+  },[set]);
+
+  useEffect(()=>{
+    if(S.notif){const t=setTimeout(()=>set(p=>({...p,notif:null})),2800);return()=>clearTimeout(t);}
+  },[S.notif]);
+
+  const nav=useCallback((page,params={})=>{set(p=>({...p,page,params}));window.scrollTo(0,0);},[set]);
+
+  const seek=useCallback(val=>{
+    if(audioRef.current){
+      audioRef.current.currentTime=val;
+    }
+    set(p=>({...p,progress:val}));
+  },[set]);
+
+  const play=useCallback((song,arr)=>{
+    set(p=>{
+      const isSame=p.song?.id===song.id;
+      if(isSame){
+        return{...p,playing:!p.playing};
+      }
+      return{
+        ...p,
+        song,
+        playing:true,
+        progress:0,
+        queue:arr?arr.map(s=>s.id):p.queue,
+        recent:[song.id,...p.recent.filter(i=>i!==song.id)].slice(0,12)
+      };
+    });
+  },[set]);
+
+  const togglePlay=useCallback(()=>{
+    set(p=>({...p,playing:!p.playing}));
+  },[set]);
+
+  const nextSong=useCallback(()=>set(p=>{
+    const q=p.queue||[];const i=q.indexOf(p.song?.id);
+    const nid=q[i+1]||q[0];
+    return{...p,song:SONGS.find(s=>s.id===nid)||SONGS[0],progress:0,playing:true};
+  }),[set]);
+
+  const prevSong=useCallback(()=>set(p=>{
+    if(p.progress>5){
+      if(audioRef.current)audioRef.current.currentTime=0;
+      return{...p,progress:0};
+    }
+    const q=p.queue||[];const i=q.indexOf(p.song?.id);
+    const pid=q[i-1]||q[q.length-1];
+    return{...p,song:SONGS.find(s=>s.id===pid)||SONGS[0],progress:0,playing:true};
+  }),[set]);
+
+  const like=useCallback((type,id)=>set(p=>{
+    const list=p.liked[type]||[];const has=list.includes(id);
+    return{...p,liked:{...p.liked,[type]:has?list.filter(x=>x!==id):[...list,id]},
+      notif:has?'Removed from favorites':'Added to favorites ❤️'};
+  }),[set]);
+  const isLiked=useCallback((type,id)=>(S.liked[type]||[]).includes(id),[S.liked]);
+  const notify=useCallback(msg=>set(p=>({...p,notif:msg})),[set]);
+
+  return<Ctx.Provider value={{...S,set,nav,play,togglePlay,nextSong,prevSong,like,isLiked,notify,seek}}>{children}</Ctx.Provider>;
+}
+
+// ─── UTILS ────────────────────────────────────────────────────────────────────
+const fmt=s=>{const m=Math.floor(s/60),sc=Math.floor(s%60);return`${m}:${sc.toString().padStart(2,'0')}`;};
+
+function Img({src,alt,grad='linear-gradient(135deg,#8B5CF6,#EC4899)',style={}}){
+  const[err,setErr]=useState(false);
+  if(err)return<div style={{background:grad,display:'flex',alignItems:'center',justifyContent:'center',fontSize:'1.5rem',width:'100%',height:'100%',...style}}>🎵</div>;
+  return<img src={src} alt={alt} loading="lazy" style={{objectFit:'cover',width:'100%',height:'100%',...style}} onError={()=>setErr(true)}/>;
+}
+
+function Waves({playing,size=14}){
+  if(!playing)return<svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>;
+  return<div style={{display:'flex',alignItems:'flex-end',gap:2,height:size}}>{[0,.15,.3,.45].map((d,i)=><div key={i} className="wb" style={{height:size,animationDelay:`${d}s`}}/>)}</div>;
+}
+
+function SecHdr({title,sub,action,onAct}){
+  return<div style={{display:'flex',alignItems:'flex-end',justifyContent:'space-between',marginBottom:16}}>
+    <div>
+      <h2 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:700,fontSize:'1.15rem'}}>{title}</h2>
+      {sub&&<p style={{fontSize:13,color:'rgba(240,240,245,.42)',marginTop:2}}>{sub}</p>}
+    </div>
+    {action&&<button onClick={onAct} style={{fontSize:13,color:'#A78BFA',background:'none',border:'none',cursor:'pointer'}}>{action} →</button>}
+  </div>;
+}
+
+function HScroll({children}){
+  return<div className="hsb"><div style={{display:'flex',gap:16,width:'max-content'}}>{children}</div></div>;
+}
+
+function MoodChip({mood,active,onClick}){
+  return<button onClick={onClick} aria-pressed={active} className="bp"
+    style={{display:'flex',alignItems:'center',gap:6,padding:'8px 16px',borderRadius:100,fontSize:14,fontWeight:500,cursor:'pointer',transition:'all .2s',
+      background:active?'linear-gradient(135deg,#8B5CF6,#EC4899)':'rgba(255,255,255,.06)',
+      border:active?'none':'1px solid rgba(255,255,255,.08)',color:active?'#fff':'rgba(240,240,245,.62)'}}>
+    <span>{ME[mood]||'🎵'}</span><span>{mood}</span>
+  </button>;
+}
+
+function Notif(){
+  const{notif}=useApp();
+  if(!notif)return null;
+  return<div style={{position:'fixed',top:24,left:'50%',transform:'translateX(-50%)',zIndex:9999,animation:'aup .3s ease'}}>
+    <div className="glass" style={{padding:'11px 22px',borderRadius:14,fontSize:14,fontWeight:500,whiteSpace:'nowrap'}}>{notif}</div>
+  </div>;
+}
+
+// ─── CARDS ────────────────────────────────────────────────────────────────────
+function SongRow({song,idx,arr}){
+  const{play,like,isLiked,song:cur,playing}=useApp();
+  const active=cur?.id===song.id;const lk=isLiked('songs',song.id);
+  return<div onClick={()=>play(song,arr)} className="group"
+    style={{display:'flex',alignItems:'center',gap:12,padding:'8px 12px',borderRadius:12,cursor:'pointer',transition:'background .15s',
+      background:active?'rgba(139,92,246,.12)':'transparent'}}
+    onMouseEnter={e=>!active&&(e.currentTarget.style.background='rgba(255,255,255,.04)')}
+    onMouseLeave={e=>!active&&(e.currentTarget.style.background='transparent')}>
+    <div style={{width:28,textAlign:'center',flexShrink:0,fontSize:13,color:active?'#A78BFA':'rgba(240,240,245,.38)'}}>
+      {active?<Waves playing={playing} size={13}/>:(idx+1)}
+    </div>
+    <div style={{width:40,height:40,borderRadius:8,overflow:'hidden',flexShrink:0}}><Img src={song.poster||song.cover} alt={song.title}/></div>
+    <div style={{flex:1,minWidth:0}}>
+      <div style={{fontSize:14,fontWeight:500,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',color:active?'#A78BFA':'#f0f0f5'}}>{song.title}</div>
+      <div style={{fontSize:12,color:'rgba(240,240,245,.42)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{song.artist}</div>
+    </div>
+    <button onClick={e=>{e.stopPropagation();like('songs',song.id);}}
+      style={{padding:4,borderRadius:6,opacity:lk?1:0,transition:'opacity .2s',color:lk?'#EC4899':'rgba(240,240,245,.5)',background:'none',border:'none',cursor:'pointer'}}
+      className="group-hover:opacity-100" aria-label="Like">
+      <svg width={15} height={15} viewBox="0 0 24 24" fill={lk?'#EC4899':'none'} stroke={lk?'#EC4899':'currentColor'} strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <div style={{fontSize:12,color:'rgba(240,240,245,.3)',width:34,textAlign:'right',flexShrink:0}}>{fmt(song.dur)}</div>
+  </div>;
+}
+
+function SongCard({song,arr}){
+  const{play,song:cur,playing}=useApp();const active=cur?.id===song.id;
+  return<div className="chov group" style={{width:158,cursor:'pointer'}} onClick={()=>play(song,arr)}>
+    <div style={{width:158,height:158,borderRadius:14,overflow:'hidden',position:'relative'}}>
+      <Img src={song.poster||song.cover} alt={song.title}/>
+      <div style={{position:'absolute',inset:0,background:'rgba(0,0,0,0)',transition:'background .2s'}} className="group-hover:bg-black/40"/>
+      <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',opacity:active?1:0,transition:'opacity .2s'}} className="group-hover:opacity-100">
+        <div style={{background:'rgba(255,255,255,.92)',borderRadius:'50%',padding:11,boxShadow:'0 4px 14px rgba(0,0,0,.4)'}}>
+          {active&&playing
+            ?<svg width={18} height={18} viewBox="0 0 24 24" fill="#111"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            :<svg width={18} height={18} viewBox="0 0 24 24" fill="#111"><path d="M5 3l14 9-14 9V3z"/></svg>}
+        </div>
+      </div>
+      {active&&<div style={{position:'absolute',bottom:8,right:8}}><Waves playing={playing} size={14}/></div>}
+    </div>
+    <div style={{marginTop:8}}>
+      <div style={{fontSize:14,fontWeight:500,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',color:active?'#A78BFA':'#f0f0f5'}}>{song.title}</div>
+      <div style={{fontSize:12,color:'rgba(240,240,245,.42)',marginTop:2,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{song.artist}</div>
+    </div>
+  </div>;
+}
+
+function PlCard({pl,onClick}){
+  const{play}=useApp();
+  const songs=pl.songs.map(id=>SONGS.find(s=>s.id===id)).filter(Boolean);
+  return<div className="chov group" style={{width:174,cursor:'pointer'}} onClick={onClick}>
+    <div style={{width:174,height:174,borderRadius:16,overflow:'hidden',position:'relative'}}>
+      <Img src={pl.cover} alt={pl.name} grad={`linear-gradient(135deg,${pl.color},${pl.color}88)`}/>
+      <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,transparent 50%,rgba(0,0,0,.65) 100%)'}}/>
+      <div style={{position:'absolute',top:8,left:10,fontSize:22}}>{pl.em}</div>
+      <div style={{position:'absolute',bottom:8,right:8,opacity:0,transition:'opacity .2s'}} className="group-hover:opacity-100">
+        <button onClick={e=>{e.stopPropagation();songs[0]&&play(songs[0],songs);}}
+          style={{background:'rgba(255,255,255,.9)',borderRadius:'50%',padding:8,border:'none',cursor:'pointer'}} aria-label="Play">
+          <svg width={14} height={14} viewBox="0 0 24 24" fill="#111"><path d="M5 3l14 9-14 9V3z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div style={{marginTop:8}}>
+      <div style={{fontSize:14,fontWeight:600,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{pl.name}</div>
+      <div style={{fontSize:12,color:'rgba(240,240,245,.4)',marginTop:2}}>{pl.songs.length} songs</div>
+    </div>
+  </div>;
+}
+
+function EvCard({ev,userCampus,onClick}){
+  const{like,isLiked}=useApp();const lk=isLiked('events',ev.id);const atC=ev.campus===userCampus;
+  return<div className="glass chov" style={{minWidth:278,maxWidth:318,borderRadius:20,overflow:'hidden',cursor:'pointer'}} onClick={onClick}>
+    <div style={{height:158,position:'relative',overflow:'hidden'}}>
+      <Img src={ev.cover} alt={ev.name}/>
+      <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,transparent 30%,rgba(0,0,0,.78) 100%)'}}/>
+      {atC&&<div style={{position:'absolute',top:10,left:10}}><span className="tag" style={{background:'rgba(139,92,246,.85)',color:'#fff'}}>📍 At your campus</span></div>}
+      <button onClick={e=>{e.stopPropagation();like('events',ev.id);}}
+        style={{position:'absolute',top:10,right:10,padding:8,borderRadius:'50%',background:'rgba(0,0,0,.45)',backdropFilter:'blur(8px)',color:lk?'#EC4899':'rgba(255,255,255,.8)',border:'none',cursor:'pointer'}} aria-label="Interested">
+        <svg width={15} height={15} viewBox="0 0 24 24" fill={lk?'#EC4899':'none'} stroke={lk?'#EC4899':'currentColor'} strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div style={{position:'absolute',bottom:8,left:10,display:'flex',gap:4,flexWrap:'wrap'}}>
+        {ev.tags?.map(t=><span key={t} className="tag" style={{background:'rgba(0,0,0,.55)',color:'rgba(255,255,255,.82)',fontSize:10}}>{t}</span>)}
+      </div>
+    </div>
+    <div style={{padding:'14px 16px'}}>
+      <div style={{fontWeight:600,fontSize:15}}>{ev.name}</div>
+      <div style={{fontSize:12,color:'rgba(240,240,245,.42)',marginTop:5}}>📅 {new Date(ev.date).toLocaleDateString('en-IN',{day:'numeric',month:'short'})} · {ev.time}</div>
+      <div style={{fontSize:12,color:'rgba(240,240,245,.38)',marginTop:2}}>📍 {ev.venue}</div>
+      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:12}}>
+        <span style={{fontSize:12,color:'#A78BFA'}}>{ev.interested} interested</span>
+        <button onClick={e=>{e.stopPropagation();like('events',ev.id);}} className="bp"
+          style={{fontSize:12,padding:'5px 14px',borderRadius:8,fontWeight:500,cursor:'pointer',border:'1px solid',
+            background:lk?'rgba(236,72,153,.18)':'rgba(139,92,246,.18)',color:lk?'#F9A8D4':'#A78BFA',borderColor:lk?'rgba(236,72,153,.25)':'rgba(139,92,246,.25)'}}>
+          {lk?'✓ Interested':'Interested'}
+        </button>
+      </div>
+    </div>
+  </div>;
+}
+
+function ArCard({artist}){
+  const{like,isLiked}=useApp();const lk=isLiked('artists',artist.id);
+  return<div className="chov group" style={{width:118,cursor:'pointer',textAlign:'center'}} onClick={()=>like('artists',artist.id)}>
+    <div style={{width:118,height:118,borderRadius:'50%',overflow:'hidden',position:'relative',margin:'0 auto',border:`2px solid ${artist.color}55`}}>
+      <Img src={artist.img} alt={artist.name} grad={`linear-gradient(135deg,${artist.color},${artist.color}66)`}/>
+      <div style={{position:'absolute',inset:0,borderRadius:'50%',background:'rgba(0,0,0,0)',transition:'background .2s',display:'flex',alignItems:'center',justifyContent:'center'}} className="group-hover:bg-black/40">
+        <span style={{opacity:0,transition:'opacity .2s',color:lk?'#EC4899':'#fff'}} className="group-hover:opacity-100">
+          <svg width={20} height={20} viewBox="0 0 24 24" fill={lk?'#EC4899':'none'} stroke={lk?'#EC4899':'currentColor'} strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </span>
+      </div>
+    </div>
+    <div style={{marginTop:8}}>
+      <div style={{fontSize:13,fontWeight:600}}>{artist.name}</div>
+      <div style={{fontSize:12,color:'rgba(240,240,245,.4)',marginTop:2}}>{artist.genre}</div>
+    </div>
+  </div>;
+}
+
+// ─── PLAYER ───────────────────────────────────────────────────────────────────
+function Player(){
+  const{song,playing,progress,volume,showQ,queue,set,togglePlay,nextSong,prevSong,like,isLiked,seek,notify}=useApp();
+  const[isEditingTime,setIsEditingTime]=useState(false);
+  const[timeInput,setTimeInput]=useState('');
+  const[draggingVal,setDraggingVal]=useState(null);
+
+  if(!song)return null;
+  const lk=isLiked('songs',song.id);
+  const dur=song.dur||240;
+  const currentPos = draggingVal !== null ? draggingVal : progress;
+  const pct=Math.min(100, Math.max(0, (currentPos / (dur || 1)) * 100));
+  const qSongs=(queue||[]).map(id=>SONGS.find(s=>s.id===id)).filter(Boolean);
+  const posterSrc=song.poster||song.cover;
+
+  // Handle click on progress track
+  const handleTrackClick=(e)=>{
+    // Ignore clicks if coming from the thumb itself
+    const rect=e.currentTarget.getBoundingClientRect();
+    const clickX=e.clientX - rect.left;
+    const ratio=Math.max(0, Math.min(1, clickX / rect.width));
+    const newTargetTime=Math.round(ratio * dur);
+    seek(newTargetTime);
+  };
+
+  // Manual time input parser and validator
+  const handleManualTimeSubmit=(e)=>{
+    e.preventDefault();
+    const raw=timeInput.trim();
+    if(!raw){
+      setIsEditingTime(false);
+      return;
+    }
+    let targetSec = 0;
+    if(raw.includes(':')){
+      const parts=raw.split(':');
+      if(parts.length===2){
+        const m=parseInt(parts[0],10);
+        const s=parseInt(parts[1],10);
+        if(!isNaN(m)&&!isNaN(s)&&m>=0&&s>=0&&s<60){
+          targetSec = m*60 + s;
+        }else{
+          notify?.('⚠️ Invalid format. Use MM:SS (e.g. 1:30)');
+          setIsEditingTime(false);
+          return;
+        }
+      }else{
+        notify?.('⚠️ Invalid format. Use MM:SS (e.g. 1:30)');
+        setIsEditingTime(false);
+        return;
+      }
+    }else{
+      const s=parseInt(raw,10);
+      if(!isNaN(s)&&s>=0){
+        targetSec = s;
+      }else{
+        notify?.('⚠️ Invalid seconds. Enter a positive number');
+        setIsEditingTime(false);
+        return;
+      }
+    }
+
+    if(targetSec > dur){
+      notify?.(`⚠️ Time exceeds song duration (${fmt(dur)})`);
+      targetSec = dur;
+    }
+    seek(targetSec);
+    setIsEditingTime(false);
+    setTimeInput('');
+  };
+
+  return<>
+    {showQ&&<div className="glassd" style={{position:'fixed',right:0,bottom:78,width:296,maxHeight:'56vh',overflowY:'auto',zIndex:49,borderRadius:'16px 0 0 16px'}}>
+      <div style={{padding:16}}>
+        <div style={{fontWeight:600,fontSize:14,marginBottom:12}}>Up Next</div>
+        {qSongs.map(s=><div key={s.id} onClick={()=>set(p=>({...p,song:s,progress:0,playing:true}))}
+          style={{display:'flex',alignItems:'center',gap:10,padding:'7px 8px',borderRadius:10,cursor:'pointer',transition:'background .15s',
+            background:s.id===song.id?'rgba(139,92,246,.15)':'transparent',color:s.id===song.id?'#A78BFA':'inherit'}}
+          onMouseEnter={e=>s.id!==song.id&&(e.currentTarget.style.background='rgba(255,255,255,.05)')}
+          onMouseLeave={e=>s.id!==song.id&&(e.currentTarget.style.background='transparent')}>
+          <div style={{width:34,height:34,borderRadius:6,overflow:'hidden',flexShrink:0}}><Img src={s.poster||s.cover} alt={s.title}/></div>
+          <div style={{minWidth:0}}>
+            <div style={{fontSize:13,fontWeight:500,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.title}</div>
+            <div style={{fontSize:11,color:'rgba(240,240,245,.4)'}}>{s.artist}</div>
+          </div>
+        </div>)}
+      </div>
+    </div>}
+    <div className="glassd" style={{position:'fixed',bottom:0,left:0,right:0,zIndex:40,borderTop:'1px solid rgba(255,255,255,.06)'}}>
+      {/* Interactive Song Progress Track with Drag & Click Seeking */}
+      <div 
+        onClick={handleTrackClick}
+        style={{position:'relative',height:6,cursor:'pointer',background:'rgba(255,255,255,.09)',transition:'height .15s'}}
+        onMouseEnter={e=>e.currentTarget.style.height='8px'}
+        onMouseLeave={e=>e.currentTarget.style.height='6px'}
+        title="Click or drag anywhere to seek"
+      >
+        <div style={{position:'absolute',top:0,left:0,height:'100%',width:`${pct}%`,background:'linear-gradient(90deg,#8B5CF6,#EC4899)',borderRadius:2,transition:draggingVal!==null?'none':'width .15s linear'}}/>
+        <input 
+          type="range" 
+          min={0} 
+          max={dur} 
+          value={currentPos} 
+          onInput={e=>setDraggingVal(+e.target.value)}
+          onChange={e=>{
+            const val=+e.target.value;
+            setDraggingVal(null);
+            seek(val);
+          }}
+          className="pbar" 
+          aria-label="Seek to time" 
+          style={{position:'absolute',top:0,left:0,width:'100%',height:'100%',opacity:0,cursor:'pointer',zIndex:2}}
+        />
+      </div>
+      <div style={{display:'flex',alignItems:'center',padding:'10px 16px',gap:12,paddingBottom:'calc(10px + env(safe-area-inset-bottom,0px))'}}>
+        <div style={{display:'flex',alignItems:'center',gap:12,flex:1,minWidth:0}}>
+          <div style={{width:44,height:44,borderRadius:8,overflow:'hidden',flexShrink:0}}><Img src={posterSrc} alt={song.title}/></div>
+          <div style={{minWidth:0}}>
+            <div style={{fontSize:14,fontWeight:500,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{song.title}</div>
+            <div style={{fontSize:12,color:'rgba(240,240,245,.45)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{song.artist}</div>
+          </div>
+          <button onClick={()=>like('songs',song.id)} style={{color:lk?'#EC4899':'rgba(240,240,245,.38)',flexShrink:0,background:'none',border:'none',cursor:'pointer',display:'none'}} className="sm:block" aria-label="Like">
+            <svg width={17} height={17} viewBox="0 0 24 24" fill={lk?'#EC4899':'none'} stroke={lk?'#EC4899':'currentColor'} strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <div style={{display:'flex',alignItems:'center',gap:14}}>
+          <button onClick={prevSong} style={{color:'rgba(240,240,245,.55)',background:'none',border:'none',cursor:'pointer',display:'none'}} className="sm:block" aria-label="Previous">
+            <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" strokeWidth="2" fill="none"/></svg>
+          </button>
+          <button onClick={togglePlay} className="bp" aria-label={playing?'Pause':'Play'}
+            style={{width:40,height:40,borderRadius:'50%',background:'linear-gradient(135deg,#8B5CF6,#EC4899)',display:'flex',alignItems:'center',justifyContent:'center',border:'none',cursor:'pointer',color:'#fff'}}>
+            {playing
+              ?<svg width={17} height={17} viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              :<svg width={17} height={17} viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>}
+          </button>
+          <button onClick={nextSong} style={{color:'rgba(240,240,245,.55)',background:'none',border:'none',cursor:'pointer'}} aria-label="Next">
+            <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" strokeWidth="2" fill="none"/></svg>
+          </button>
+        </div>
+        <div style={{display:'flex',alignItems:'center',gap:12,flex:1,justifyContent:'flex-end'}} className="hidden sm:flex">
+          {/* Clickable time display with manual time entry popup */}
+          {isEditingTime ? (
+            <form onSubmit={handleManualTimeSubmit} style={{display:'flex',alignItems:'center',gap:4}}>
+              <input 
+                type="text" 
+                autoFocus 
+                placeholder="1:30 or 90" 
+                value={timeInput} 
+                onChange={e=>setTimeInput(e.target.value)} 
+                onBlur={()=>setIsEditingTime(false)}
+                style={{width:86,fontSize:12,padding:'4px 8px',borderRadius:6,textAlign:'center'}}
+                title="Type time (e.g. 1:30 or 90) and press Enter"
+              />
+              <button type="submit" style={{background:'#8B5CF6',color:'#fff',fontSize:10,fontWeight:600,padding:'4px 6px',borderRadius:6,border:'none',cursor:'pointer'}}>Go</button>
+            </form>
+          ) : (
+            <span 
+              onClick={()=>{setTimeInput(fmt(progress));setIsEditingTime(true);}}
+              style={{fontSize:13,color:'rgba(240,240,245,.65)',cursor:'pointer',padding:'3px 8px',borderRadius:6,background:'rgba(255,255,255,.05)',border:'1px solid rgba(255,255,255,.08)',fontWeight:500,transition:'background .15s'}}
+              onMouseEnter={e=>e.currentTarget.style.background='rgba(139,92,246,.2)'}
+              onMouseLeave={e=>e.currentTarget.style.background='rgba(255,255,255,.05)'}
+              title="Click to manually jump to any time (e.g. 1:30 or 90)"
+            >
+              <span style={{color:'#fff',fontWeight:600}}>{fmt(progress)}</span> / <span>{fmt(dur)}</span>
+            </span>
+          )}
+          <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="rgba(240,240,245,.5)" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <input type="range" min={0} max={1} step={.01} value={volume} onChange={e=>set(p=>({...p,volume:+e.target.value}))} className="vbar" aria-label="Volume"/>
+          <button onClick={()=>set(p=>({...p,showQ:!p.showQ}))}
+            style={{color:showQ?'#A78BFA':'rgba(240,240,245,.45)',background:'none',border:'none',cursor:'pointer'}} aria-label="Queue">
+            <svg width={17} height={17} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </>;
+}
+
+// ─── NAV ──────────────────────────────────────────────────────────────────────
+const NAVS=[{id:'home',l:'Home',e:'🏠'},{id:'trending',l:'Trending',e:'🔥'},{id:'mood',l:'Mood',e:'🎭'},{id:'playlists',l:'Playlists',e:'🎵'},{id:'events',l:'Events',e:'📅'},{id:'search',l:'Search',e:'🔍'},{id:'favorites',l:'Favorites',e:'❤️'},{id:'profile',l:'Profile',e:'👤'}];
+
+function Sidebar(){
+  const{user,page,nav}=useApp();if(!user)return null;
+  const campus=CAMPUSES.find(c=>c.id===user.campus);
+  return<div className="glassd" style={{position:'fixed',left:0,top:0,bottom:0,width:228,zIndex:30,borderRight:'1px solid rgba(255,255,255,.06)',display:'flex',flexDirection:'column',paddingBottom:80}}>
+    <div style={{padding:'22px 18px 14px'}}>
+      <div style={{display:'flex',alignItems:'center',gap:10}}>
+        <div style={{width:36,height:36,borderRadius:10,background:'linear-gradient(135deg,#8B5CF6,#EC4899)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:17,flexShrink:0}}>🎵</div>
+        <div>
+          <div className="gt" style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:14}}>GBMB</div>
+          <div style={{fontSize:10,color:'rgba(240,240,245,.32)'}}>Gaana Bajao, Mood Bachao</div>
+        </div>
+      </div>
+    </div>
+    <nav style={{flex:1,padding:'4px 8px',overflowY:'auto'}}>
+      {NAVS.map(n=><button key={n.id} onClick={()=>nav(n.id)}
+        className={`ni ${page===n.id?'act':''}`}
+        style={{display:'flex',alignItems:'center',gap:12,padding:'9px 12px',borderRadius:12,marginBottom:2,fontSize:14,fontWeight:500,color:page===n.id?'#A78BFA':'rgba(240,240,245,.52)',borderLeft:page===n.id?'2px solid #8B5CF6':'2px solid transparent'}}
+        aria-current={page===n.id?'page':undefined}>
+        <span style={{width:20,textAlign:'center'}}>{n.e}</span>{n.l}
+      </button>)}
+    </nav>
+    <div style={{padding:'8px',borderTop:'1px solid rgba(255,255,255,.06)'}}>
+      <button onClick={()=>nav('profile')} style={{width:'100%',display:'flex',alignItems:'center',gap:10,padding:'8px 10px',borderRadius:12,cursor:'pointer',background:'transparent',color:'inherit',border:'none',transition:'background .2s'}}
+        onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,.05)'} onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
+        <div style={{width:30,height:30,borderRadius:'50%',background:'linear-gradient(135deg,#8B5CF6,#EC4899)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:13,fontWeight:700,flexShrink:0}}>
+          {user.name?.charAt(0)?.toUpperCase()||'?'}
+        </div>
+        <div style={{textAlign:'left',minWidth:0}}>
+          <div style={{fontSize:13,fontWeight:500,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{user.name}</div>
+          <div style={{fontSize:11,color:'rgba(240,240,245,.38)'}}>{campus?.short}</div>
+        </div>
+      </button>
+    </div>
+  </div>;
+}
+
+function BottomNav(){
+  const{user,page,nav}=useApp();if(!user)return null;
+  const items=[{id:'home',l:'Home',e:'🏠'},{id:'trending',l:'Trending',e:'🔥'},{id:'mood',l:'Mood',e:'🎭'},{id:'events',l:'Events',e:'📅'},{id:'profile',l:'Me',e:'👤'}];
+  return<div className="glassd lg:hidden" style={{position:'fixed',left:0,right:0,bottom:72,zIndex:30,borderTop:'1px solid rgba(255,255,255,.06)'}}>
+    <div style={{display:'flex'}}>
+      {items.map(n=><button key={n.id} onClick={()=>nav(n.id)}
+        style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',padding:'8px 0 6px',gap:2,fontSize:11,fontWeight:500,cursor:'pointer',background:'transparent',border:'none',color:page===n.id?'#A78BFA':'rgba(240,240,245,.38)',transition:'color .2s'}}
+        aria-current={page===n.id?'page':undefined}>
+        <span style={{fontSize:20}}>{n.e}</span><span>{n.l}</span>
+      </button>)}
+    </div>
+  </div>;
+}
+
+// ─── LANDING ──────────────────────────────────────────────────────────────────
+function Landing(){
+  const{set}=useApp();
+  const cRefs=useRef([]);
+  useEffect(()=>{
+    const h=e=>{
+      const x=(e.clientX/window.innerWidth-.5)*2;
+      const y=(e.clientY/window.innerHeight-.5)*2;
+      cRefs.current.forEach((el,i)=>{
+        if(!el)return;
+        const d=(i%3+1)*.55;
+        const ang=HC[i]?.ang||0;
+        el.style.transform=`translate(${x*20*d}px,${y*15*d}px) rotate(${ang+x*3}deg)`;
+      });
+    };
+    window.addEventListener('mousemove',h,{passive:true});
+    return()=>window.removeEventListener('mousemove',h);
+  },[]);
+  const stars=useMemo(()=>Array.from({length:48}).map((_,i)=>({id:i,w:Math.random()*2.5+.5,x:Math.random()*100,y:Math.random()*100,d:2+Math.random()*4,dl:Math.random()*3})),[]);
+  return<div style={{minHeight:'100vh',position:'relative',overflow:'hidden',background:'radial-gradient(ellipse at 30% 20%,rgba(139,92,246,.2) 0%,transparent 55%),radial-gradient(ellipse at 75% 80%,rgba(236,72,153,.13) 0%,transparent 55%),#08080f'}}>
+    <div className="orb" style={{width:700,height:700,background:'#8B5CF6',top:'-15%',left:'-12%'}}/>
+    <div className="orb" style={{width:450,height:450,background:'#EC4899',bottom:'-8%',right:'-8%',animationDelay:'-10s'}}/>
+    <div className="orb" style={{width:320,height:320,background:'#3B82F6',top:'38%',right:'18%',animationDelay:'-6s'}}/>
+    {stars.map(s=><div key={s.id} className="star" style={{position:'absolute',width:s.w,height:s.w,background:'#fff',borderRadius:'50%',left:`${s.x}%`,top:`${s.y}%`,'--d':`${s.d}s`,'--dl':`${s.dl}s`}}/>)}
+    {HC.map((c,i)=><div key={c.id} ref={el=>cRefs.current[i]=el} className={c.cls}
+      style={{position:'absolute',left:c.x,top:c.y,transform:`rotate(${c.ang}deg)`,transition:'transform .12s ease-out',zIndex:c.z,willChange:'transform'}}>
+      <div style={{width:c.w,height:c.w,borderRadius:16,overflow:'hidden',boxShadow:'0 24px 48px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.1)'}}>
+        <Img src={c.src} alt="" grad="linear-gradient(135deg,#8B5CF6,#EC4899)"/>
+      </div>
+    </div>)}
+    <div style={{position:'relative',zIndex:10,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',minHeight:'100vh',padding:'0 24px',textAlign:'center'}}>
+      <div className="afd" style={{animationDelay:'.1s',opacity:0,animationFillMode:'forwards',marginBottom:22}}>
+        <span className="glass" style={{padding:'8px 20px',borderRadius:100,fontSize:13,fontWeight:500,border:'1px solid rgba(139,92,246,.3)'}}>
+          🎵 Your Campus. Your Music. Your Mood.
+        </span>
+      </div>
+      <h1 className="aup" style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'clamp(2.5rem,8vw,5.5rem)',lineHeight:1.08,letterSpacing:'-.02em',maxWidth:820,opacity:0,animationDelay:'.2s',animationFillMode:'forwards'}}>
+        <span className="gt">Gaana Bajao.</span><br/><span style={{color:'#fff'}}>Mood Bachao.</span>
+      </h1>
+      <p className="afd" style={{marginTop:20,fontSize:'1.1rem',color:'rgba(240,240,245,.55)',maxWidth:460,lineHeight:1.65,opacity:0,animationDelay:'.5s',animationFillMode:'forwards'}}>
+        Music that matches your campus energy. Discover tracks, moods and events tailored just for you.
+      </p>
+      <div className="aup" style={{display:'flex',flexWrap:'wrap',gap:12,justifyContent:'center',marginTop:34,opacity:0,animationDelay:'.7s',animationFillMode:'forwards'}}>
+        <button onClick={()=>set(p=>({...p,page:'onboarding',obStep:0}))} className="bp pglow"
+          style={{padding:'14px 32px',borderRadius:16,fontWeight:700,fontSize:15,background:'linear-gradient(135deg,#8B5CF6,#EC4899)',color:'#fff',border:'none',cursor:'pointer',minWidth:196}}>
+          🎭 Find My Vibe
+        </button>
+        <button onClick={()=>set(p=>({...p,page:'onboarding',obStep:0}))} className="bp glass"
+          style={{padding:'14px 32px',borderRadius:16,fontWeight:700,fontSize:15,color:'#fff',cursor:'pointer',minWidth:196}}>
+          📅 Explore Campus Events
+        </button>
+      </div>
+      <div className="afd" style={{display:'flex',gap:36,marginTop:50,opacity:0,animationDelay:'1s',animationFillMode:'forwards'}}>
+        {[['10K+','Students'],['500+','Tracks'],['50+','Events']].map(([n,l])=><div key={l} style={{textAlign:'center'}}>
+          <div className="gt" style={{fontWeight:700,fontSize:'1.25rem'}}>{n}</div>
+          <div style={{fontSize:12,color:'rgba(240,240,245,.36)',marginTop:3}}>{l}</div>
+        </div>)}
+      </div>
+    </div>
+  </div>;
+}
+
+// ─── ONBOARDING ───────────────────────────────────────────────────────────────
+function Onboarding(){
+  const{obStep,obData,set}=useApp();
+  const upd=(k,v)=>set(p=>({...p,obData:{...p.obData,[k]:v}}));
+  const next=()=>set(p=>({...p,obStep:p.obStep+1}));
+  const back=()=>set(p=>({...p,obStep:Math.max(0,p.obStep-1)}));
+  const finish=()=>{const{name,campus,mood,genres}=obData;set(p=>({...p,user:{name,campus,mood,genres},page:'home'}));};
+  const steps=['Your Name','Your Campus','Your Mood','Your Genres'];
+  const ok=[obData.name.trim().length>0,obData.campus.length>0,obData.mood.length>0,obData.genres.length>0];
+  return<div style={{minHeight:'100vh',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'60px 24px',background:'radial-gradient(ellipse at 50% 0%,rgba(139,92,246,.22) 0%,transparent 55%),#08080f'}}>
+    <div style={{marginBottom:28,textAlign:'center'}}>
+      <div style={{fontSize:30,marginBottom:5}}>🎵</div>
+      <div className="gt" style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:20}}>GBMB</div>
+    </div>
+    <div style={{width:'100%',maxWidth:432,marginBottom:22}}>
+      <div style={{display:'flex',gap:5}}>
+        {steps.map((_,i)=><div key={i} style={{flex:1,height:4,borderRadius:4,overflow:'hidden',background:'rgba(255,255,255,.1)'}}>
+          <div style={{height:'100%',width:i<=obStep?'100%':'0%',background:'linear-gradient(90deg,#8B5CF6,#EC4899)',transition:'width .5s ease'}}/>
+        </div>)}
+      </div>
+      <div style={{fontSize:12,color:'rgba(240,240,245,.35)',marginTop:6}}>Step {obStep+1} of {steps.length} — {steps[obStep]}</div>
+    </div>
+    <div className="glass asc" style={{borderRadius:24,padding:30,width:'100%',maxWidth:432}}>
+      {obStep===0&&<div>
+        <h2 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:700,fontSize:'1.55rem',marginBottom:8}}>What should we call you? 👋</h2>
+        <p style={{fontSize:14,color:'rgba(240,240,245,.46)',marginBottom:20}}>We'll personalise everything around you.</p>
+        <input type="text" placeholder="Your name..." value={obData.name} onChange={e=>upd('name',e.target.value)} onKeyDown={e=>e.key==='Enter'&&ok[0]&&next()} autoFocus/>
+      </div>}
+      {obStep===1&&<div>
+        <h2 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:700,fontSize:'1.55rem',marginBottom:8}}>Which campus? 🏫</h2>
+        <p style={{fontSize:14,color:'rgba(240,240,245,.46)',marginBottom:18}}>See events and trending music near you.</p>
+        <div style={{display:'flex',flexDirection:'column',gap:9}}>
+          {CAMPUSES.map(c=>{const sel=obData.campus===c.id;return<button key={c.id} onClick={()=>upd('campus',c.id)} className="bp"
+            style={{padding:'11px 16px',borderRadius:12,textAlign:'left',fontWeight:500,fontSize:14,cursor:'pointer',border:'1px solid',
+              background:sel?'linear-gradient(135deg,rgba(139,92,246,.28),rgba(236,72,153,.18))':'rgba(255,255,255,.05)',
+              borderColor:sel?'rgba(139,92,246,.4)':'rgba(255,255,255,.08)',color:sel?'#fff':'rgba(240,240,245,.62)'}}>
+            {sel?'✓ ':''}{c.name}{c.city&&<span style={{fontSize:11,color:'rgba(240,240,245,.32)',marginLeft:8}}>{c.city}</span>}
+          </button>;})}
+        </div>
+      </div>}
+      {obStep===2&&<div>
+        <h2 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:700,fontSize:'1.55rem',marginBottom:8}}>How're you feeling? {ME[obData.mood]||'🎭'}</h2>
+        <p style={{fontSize:14,color:'rgba(240,240,245,.46)',marginBottom:18}}>Pick your current vibe — change anytime.</p>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:9}}>
+          {MOODS_LIST.map(m=>{const sel=obData.mood===m;return<button key={m} onClick={()=>upd('mood',m)} className="bp"
+            style={{padding:'11px 14px',borderRadius:12,display:'flex',alignItems:'center',gap:8,fontWeight:500,fontSize:14,cursor:'pointer',border:'1px solid',
+              background:sel?'linear-gradient(135deg,rgba(139,92,246,.28),rgba(236,72,153,.18))':'rgba(255,255,255,.05)',
+              borderColor:sel?'rgba(139,92,246,.4)':'rgba(255,255,255,.08)',color:sel?'#fff':'rgba(240,240,245,.62)'}}>
+            <span>{ME[m]}</span><span>{m}</span>
+          </button>;})}
+        </div>
+      </div>}
+      {obStep===3&&<div>
+        <h2 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:700,fontSize:'1.55rem',marginBottom:8}}>Your music, your rules 🎵</h2>
+        <p style={{fontSize:14,color:'rgba(240,240,245,.46)',marginBottom:18}}>Select genres you love — pick as many as you want.</p>
+        <div style={{display:'flex',flexWrap:'wrap',gap:8}}>
+          {GENRES.map(g=>{const sel=obData.genres.includes(g);return<button key={g} onClick={()=>upd('genres',sel?obData.genres.filter(x=>x!==g):[...obData.genres,g])} className="bp" aria-pressed={sel}
+            style={{padding:'8px 18px',borderRadius:100,fontSize:14,fontWeight:500,cursor:'pointer',border:'none',
+              background:sel?'linear-gradient(135deg,#8B5CF6,#EC4899)':'rgba(255,255,255,.07)',color:sel?'#fff':'rgba(240,240,245,.62)'}}>
+            {sel?'✓ ':''}{g}
+          </button>;})}
+        </div>
+      </div>}
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:26}}>
+        {obStep>0?<button onClick={back} style={{fontSize:13,color:'rgba(240,240,245,.42)',background:'none',border:'none',cursor:'pointer'}}>← Back</button>:<div/>}
+        {obStep<steps.length-1
+          ?<button onClick={next} disabled={!ok[obStep]} className="bp"
+              style={{padding:'10px 24px',borderRadius:12,fontWeight:600,fontSize:14,border:'none',cursor:ok[obStep]?'pointer':'not-allowed',
+                background:ok[obStep]?'linear-gradient(135deg,#8B5CF6,#EC4899)':'rgba(255,255,255,.09)',color:ok[obStep]?'#fff':'rgba(240,240,245,.28)'}}>
+              Continue →
+            </button>
+          :<button onClick={finish} disabled={!ok[obStep]} className="bp"
+              style={{padding:'10px 24px',borderRadius:12,fontWeight:700,fontSize:14,border:'none',cursor:ok[obStep]?'pointer':'not-allowed',
+                background:ok[obStep]?'linear-gradient(135deg,#8B5CF6,#F97316)':'rgba(255,255,255,.09)',color:ok[obStep]?'#fff':'rgba(240,240,245,.28)'}}>
+              🚀 Let's Go!
+            </button>}
+      </div>
+    </div>
+  </div>;
+}
+
+// ─── HOME ─────────────────────────────────────────────────────────────────────
+function Home(){
+  const{user,nav,recent}=useApp();
+  const[mood,setMood]=useState(user?.mood||'Happy');
+  const h=new Date().getHours();
+  const greet=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  const moodSongs=SONGS.filter(s=>s.mood?.includes(mood)).slice(0,10);
+  const recSongs=recent.map(id=>SONGS.find(s=>s.id===id)).filter(Boolean);
+  const hot=SONGS.filter(s=>s.hot);
+  const campusEvs=EVENTS.filter(e=>e.campus===user?.campus).slice(0,3);
+  return<div style={{display:'flex',flexDirection:'column',gap:34}}>
+    <div>
+      <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between'}}>
+        <div>
+          <p style={{fontSize:14,color:'rgba(240,240,245,.46)'}}>{greet} 👋</p>
+          <h1 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'clamp(1.75rem,4vw,2.3rem)',marginTop:4}}>
+            Hey, <span className="gt">{user?.name}</span>
+          </h1>
+        </div>
+        <button onClick={()=>nav('search')} className="glass bp" style={{padding:12,borderRadius:14,color:'rgba(240,240,245,.65)',border:'none',cursor:'pointer'}} aria-label="Search">
+          <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </div>
+      <p style={{fontSize:14,color:'rgba(240,240,245,.46)',marginTop:8,marginBottom:12}}>What's your mood today?</p>
+      <div style={{display:'flex',flexWrap:'wrap',gap:8}}>{MOODS_LIST.map(m=><MoodChip key={m} mood={m} active={mood===m} onClick={()=>setMood(m)}/>)}</div>
+    </div>
+    <div>
+      <SecHdr title={`${ME[mood]} ${mood} Picks`} sub="Based on your current mood" action="See all" onAct={()=>nav('mood')}/>
+      <HScroll>{moodSongs.map(s=><SongCard key={s.id} song={s} arr={moodSongs}/>)}</HScroll>
+    </div>
+    {recSongs.length>0&&<div>
+      <SecHdr title="Recently Played"/>
+      <HScroll>{recSongs.map(s=><SongCard key={s.id} song={s} arr={recSongs}/>)}</HScroll>
+    </div>}
+    <div>
+      <SecHdr title="🔥 Trending on Campus" sub="What everyone's listening to" action="See all" onAct={()=>nav('trending')}/>
+      <div className="glass" style={{borderRadius:20,padding:'8px 4px'}}>
+        {hot.map((s,i)=><SongRow key={s.id} song={s} idx={i} arr={hot}/>)}
+      </div>
+    </div>
+    <div>
+      <SecHdr title="Quick Playlists" action="See all" onAct={()=>nav('playlists')}/>
+      <HScroll>{PLAYLISTS.slice(0,6).map(pl=><PlCard key={pl.id} pl={pl} onClick={()=>nav('playlist-detail',{pid:pl.id})}/>)}</HScroll>
+    </div>
+    {campusEvs.length>0&&<div>
+      <SecHdr title="🎉 At Your Campus" sub="Events coming up near you" action="See all" onAct={()=>nav('events')}/>
+      <HScroll>{campusEvs.map(ev=><EvCard key={ev.id} ev={ev} userCampus={user?.campus} onClick={()=>nav('event-detail',{eid:ev.id})}/>)}</HScroll>
+    </div>}
+  </div>;
+}
+
+// ─── TRENDING ─────────────────────────────────────────────────────────────────
+function Trending(){
+  const{user,nav}=useApp();
+  const hot=SONGS.filter(s=>s.hot);
+  const mp=[...SONGS].sort((a,b)=>parseFloat(b.plays)-parseFloat(a.plays)).slice(0,8);
+  const campus=CAMPUSES.find(c=>c.id===user?.campus);
+  return<div style={{display:'flex',flexDirection:'column',gap:34}}>
+    <div>
+      <h1 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'2rem'}}>🔥 Trending</h1>
+      <p style={{fontSize:14,color:'rgba(240,240,245,.44)',marginTop:4}}>What's hot right now</p>
+    </div>
+    <div>
+      <SecHdr title="Trending This Week" sub="Songs everyone can't stop playing"/>
+      <div className="glass" style={{borderRadius:20,padding:'8px 4px'}}>{hot.map((s,i)=><SongRow key={s.id} song={s} idx={i} arr={hot}/>)}</div>
+    </div>
+    <div>
+      <SecHdr title={`Most Played at ${campus?.short||'Campus'}`}/>
+      <HScroll>{mp.map(s=><SongCard key={s.id} song={s} arr={mp}/>)}</HScroll>
+    </div>
+    <div>
+      <SecHdr title="Trending Playlists" action="See all" onAct={()=>nav('playlists')}/>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(255px,1fr))',gap:12}}>
+        {PLAYLISTS.slice(0,5).map(pl=><div key={pl.id} className="glass chov" style={{borderRadius:18,padding:12,display:'flex',alignItems:'center',gap:14,cursor:'pointer'}} onClick={()=>nav('playlist-detail',{pid:pl.id})}>
+          <div style={{width:62,height:62,borderRadius:12,overflow:'hidden',flexShrink:0}}><Img src={pl.cover} alt={pl.name} grad={`linear-gradient(135deg,${pl.color},${pl.color}88)`}/></div>
+          <div style={{minWidth:0}}>
+            <div style={{fontWeight:600,fontSize:14,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{pl.em} {pl.name}</div>
+            <div style={{fontSize:12,color:'rgba(240,240,245,.38)',marginTop:3}}>{pl.songs.length} songs</div>
+            <div style={{fontSize:12,color:'#A78BFA',marginTop:2,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{pl.desc}</div>
+          </div>
+        </div>)}
+      </div>
+    </div>
+    <div>
+      <SecHdr title="Popular Artists"/>
+      <HScroll>{ARTISTS.map(a=><ArCard key={a.id} artist={a}/>)}</HScroll>
+    </div>
+  </div>;
+}
+
+// ─── MOOD ─────────────────────────────────────────────────────────────────────
+function MoodPage(){
+  const[sel,setSel]=useState(null);
+  const mood=MOODS.find(m=>m.id===sel);
+  const mSongs=mood?mood.songs.map(id=>SONGS.find(s=>s.id===id)).filter(Boolean):[];
+  const subs=sel?MSUBS[sel]:null;
+  return<div style={{display:'flex',flexDirection:'column',gap:26}}>
+    <div>
+      <h1 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'2rem'}}>🎭 Mood</h1>
+      <p style={{fontSize:14,color:'rgba(240,240,245,.44)',marginTop:4}}>Music for every emotion</p>
+    </div>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(158px,1fr))',gap:13}}>
+      {MOODS.map(m=><button key={m.id} onClick={()=>setSel(sel===m.id?null:m.id)} aria-pressed={sel===m.id} className="mc"
+        style={{background:m.grad,borderRadius:20,padding:'22px 18px',textAlign:'left',position:'relative',overflow:'hidden',minHeight:125,border:`2px solid ${sel===m.id?'rgba(255,255,255,.4)':'transparent'}`,cursor:'pointer'}}>
+        <div style={{fontSize:34,marginBottom:9}}>{m.em}</div>
+        <div style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:700,fontSize:'1.05rem'}}>{m.label}</div>
+        <div style={{fontSize:12,color:'rgba(255,255,255,.68)',marginTop:3}}>{m.desc}</div>
+        {sel===m.id&&<div style={{position:'absolute',top:9,right:9,background:'rgba(255,255,255,.22)',borderRadius:'50%',width:20,height:20,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11}}>✓</div>}
+      </button>)}
+    </div>
+    {sel&&mood&&<div className="aup" style={{display:'flex',flexDirection:'column',gap:22}}>
+      {subs&&<div>
+        <SecHdr title={`${mood.em} ${mood.label} — Playlists`}/>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(148px,1fr))',gap:11}}>
+          {subs.map((s,i)=><div key={i} className="glass chov" style={{borderRadius:18,padding:'18px 14px',cursor:'pointer',textAlign:'center',borderTop:`2px solid ${s.color}`}}>
+            <div style={{fontSize:26,marginBottom:7}}>{s.em}</div>
+            <div style={{fontWeight:600,fontSize:14}}>{s.n}</div>
+            <div style={{fontSize:12,color:'rgba(240,240,245,.38)',marginTop:3}}>{s.c} songs</div>
+          </div>)}
+        </div>
+      </div>}
+      <div>
+        <SecHdr title="Songs" sub={`${mSongs.length} tracks`}/>
+        <div className="glass" style={{borderRadius:20,padding:'8px 4px'}}>{mSongs.map((s,i)=><SongRow key={s.id} song={s} idx={i} arr={mSongs}/>)}</div>
+      </div>
+    </div>}
+    {!sel&&<div style={{textAlign:'center',padding:'44px 0',color:'rgba(240,240,245,.32)'}}>
+      <div style={{fontSize:50}}>🎭</div>
+      <p style={{marginTop:11,fontSize:15}}>Pick a mood to discover matching music</p>
+    </div>}
+  </div>;
+}
+
+// ─── PLAYLISTS ────────────────────────────────────────────────────────────────
+function Playlists(){
+  const{nav,notify}=useApp();
+  return<div style={{display:'flex',flexDirection:'column',gap:22}}>
+    <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+      <div>
+        <h1 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'2rem'}}>🎵 Playlists</h1>
+        <p style={{fontSize:14,color:'rgba(240,240,245,.44)',marginTop:4}}>Curated for campus life</p>
+      </div>
+      <button onClick={()=>notify('🎵 Create playlist — coming soon!')} className="glass bp"
+        style={{padding:'8px 18px',borderRadius:12,fontSize:14,fontWeight:500,color:'rgba(240,240,245,.68)',border:'none',cursor:'pointer'}}>+ Create</button>
+    </div>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(174px,1fr))',gap:20}}>
+      {PLAYLISTS.map(pl=><PlCard key={pl.id} pl={pl} onClick={()=>nav('playlist-detail',{pid:pl.id})}/>)}
+    </div>
+  </div>;
+}
+
+function PlaylistDetail({pid}){
+  const{like,isLiked,play,nav}=useApp();
+  const pl=PLAYLISTS.find(p=>p.id===pid);
+  if(!pl)return<div style={{textAlign:'center',padding:80,color:'rgba(240,240,245,.38)'}}>Playlist not found</div>;
+  const songs=pl.songs.map(id=>SONGS.find(s=>s.id===id)).filter(Boolean);
+  const lk=isLiked('playlists',pl.id);
+  const total=songs.reduce((s,x)=>s+(x?.dur||0),0);
+  return<div>
+    <button onClick={()=>nav('playlists')} style={{fontSize:13,color:'rgba(240,240,245,.42)',marginBottom:18,background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5}}>← Back to Playlists</button>
+    <div style={{borderRadius:24,overflow:'hidden',marginBottom:18,background:`linear-gradient(135deg,${pl.color}28,rgba(8,8,15,0))`,border:`1px solid ${pl.color}16`,padding:'30px 26px'}}>
+      <div style={{display:'flex',flexWrap:'wrap',gap:22,alignItems:'flex-end'}}>
+        <div style={{width:168,height:168,borderRadius:18,overflow:'hidden',flexShrink:0,boxShadow:`0 20px 40px ${pl.color}38`}}>
+          <Img src={pl.cover} alt={pl.name} grad={`linear-gradient(135deg,${pl.color},${pl.color}88)`}/>
+        </div>
+        <div style={{flex:1,minWidth:200}}>
+          <div style={{fontSize:11,color:'rgba(240,240,245,.38)',letterSpacing:2,textTransform:'uppercase',marginBottom:7}}>Playlist</div>
+          <h1 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'clamp(1.5rem,4vw,2.3rem)'}}>{pl.em} {pl.name}</h1>
+          <p style={{fontSize:14,color:'rgba(240,240,245,.48)',marginTop:7,maxWidth:380}}>{pl.desc}</p>
+          <div style={{fontSize:12,color:'rgba(240,240,245,.32)',marginTop:6}}>{songs.length} songs · {fmt(total)}</div>
+          <div style={{display:'flex',gap:11,marginTop:18}}>
+            <button onClick={()=>songs[0]&&play(songs[0],songs)} className="bp"
+              style={{padding:'11px 22px',borderRadius:14,fontWeight:700,fontSize:14,background:`linear-gradient(135deg,${pl.color},${pl.color}99)`,color:'#fff',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:7}}>
+              <svg width={15} height={15} viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>Play All
+            </button>
+            <button onClick={()=>like('playlists',pl.id)} className="bp glass"
+              style={{padding:'11px',borderRadius:14,color:lk?'#EC4899':'rgba(240,240,245,.55)',border:'none',cursor:'pointer'}} aria-label="Like playlist">
+              <svg width={18} height={18} viewBox="0 0 24 24" fill={lk?'#EC4899':'none'} stroke={lk?'#EC4899':'currentColor'} strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="glass" style={{borderRadius:20,padding:'8px 4px'}}>{songs.map((s,i)=><SongRow key={s.id} song={s} idx={i} arr={songs}/>)}</div>
+  </div>;
+}
+
+// ─── EVENTS ───────────────────────────────────────────────────────────────────
+function Events(){
+  const{user,nav}=useApp();
+  const cEvs=EVENTS.filter(e=>e.campus===user?.campus);
+  const oEvs=EVENTS.filter(e=>e.campus!==user?.campus);
+  const campus=CAMPUSES.find(c=>c.id===user?.campus);
+  return<div style={{display:'flex',flexDirection:'column',gap:30}}>
+    <div>
+      <h1 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'2rem'}}>📅 Campus Events</h1>
+      <p style={{fontSize:14,color:'rgba(240,240,245,.44)',marginTop:4}}>Never miss what's happening</p>
+    </div>
+    {cEvs.length>0&&<div>
+      <SecHdr title="At Your Campus" sub={campus?`Events at ${campus.name}`:undefined}/>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(278px,1fr))',gap:14}}>
+        {cEvs.map(ev=><EvCard key={ev.id} ev={ev} userCampus={user?.campus} onClick={()=>nav('event-detail',{eid:ev.id})}/>)}
+      </div>
+    </div>}
+    {oEvs.length>0&&<div>
+      <SecHdr title="Other Campus Events"/>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(278px,1fr))',gap:14}}>
+        {oEvs.map(ev=><EvCard key={ev.id} ev={ev} userCampus={user?.campus} onClick={()=>nav('event-detail',{eid:ev.id})}/>)}
+      </div>
+    </div>}
+  </div>;
+}
+
+function EventDetail({eid}){
+  const{like,isLiked,notify,nav}=useApp();
+  const ev=EVENTS.find(e=>e.id===eid);
+  if(!ev)return<div style={{textAlign:'center',padding:80,color:'rgba(240,240,245,.38)'}}>Event not found</div>;
+  const lk=isLiked('events',ev.id);
+  const dStr=new Date(ev.date).toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  return<div>
+    <button onClick={()=>nav('events')} style={{fontSize:13,color:'rgba(240,240,245,.42)',marginBottom:18,background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5}}>← Back to Events</button>
+    <div className="glass" style={{borderRadius:24,overflow:'hidden',marginBottom:18}}>
+      <div style={{height:275,position:'relative',overflow:'hidden'}}>
+        <Img src={ev.cover} alt={ev.name}/>
+        <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,transparent 20%,rgba(8,8,15,.88) 100%)'}}/>
+        <div style={{position:'absolute',bottom:22,left:24,right:24}}>
+          <div style={{display:'flex',flexWrap:'wrap',gap:5,marginBottom:9}}>{ev.tags?.map(t=><span key={t} className="tag" style={{background:'rgba(139,92,246,.78)',color:'#fff'}}>{t}</span>)}</div>
+          <h1 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'clamp(1.4rem,4vw,2rem)'}}>{ev.name}</h1>
+        </div>
+      </div>
+      <div style={{padding:'22px 26px'}}>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(155px,1fr))',gap:10,marginBottom:18}}>
+          {[['Date & Time',`${dStr} · ${ev.time}`],['Venue',ev.venue],['Entry',`${ev.price} · ${ev.cap} cap.`]].map(([k,v])=><div key={k} className="glass" style={{borderRadius:14,padding:'12px 15px'}}>
+            <div style={{fontSize:11,color:'rgba(240,240,245,.35)',marginBottom:4,textTransform:'uppercase',letterSpacing:1}}>{k}</div>
+            <div style={{fontSize:13,fontWeight:500}}>{v}</div>
+          </div>)}
+        </div>
+        <p style={{fontSize:14,lineHeight:1.7,color:'rgba(240,240,245,.62)'}}>{ev.desc}</p>
+        <div style={{display:'flex',gap:11,marginTop:22}}>
+          <button onClick={()=>like('events',ev.id)} className="bp"
+            style={{flex:1,padding:'12px',borderRadius:14,fontWeight:700,fontSize:14,cursor:'pointer',border:`1px solid ${lk?'rgba(236,72,153,.3)':'transparent'}`,
+              background:lk?'rgba(236,72,153,.2)':'linear-gradient(135deg,#8B5CF6,#EC4899)',color:lk?'#F9A8D4':'#fff'}}>
+            {lk?'✓ Interested':'❤️ I\'m Interested'} · {ev.interested}
+          </button>
+          <button onClick={()=>notify('📤 Link copied to clipboard!')} className="bp glass"
+            style={{padding:'12px 18px',borderRadius:14,fontWeight:500,fontSize:14,border:'none',cursor:'pointer',color:'rgba(240,240,245,.7)'}}>Share</button>
+        </div>
+      </div>
+    </div>
+  </div>;
+}
+
+// ─── SEARCH ───────────────────────────────────────────────────────────────────
+function Search(){
+  const{nav}=useApp();const[q,setQ]=useState('');const iRef=useRef(null);
+  useEffect(()=>{iRef.current?.focus();},[]);
+  const ql=q.toLowerCase().trim();
+  const res=ql?{
+    songs:SONGS.filter(s=>s.title.toLowerCase().includes(ql)||s.artist.toLowerCase().includes(ql)||s.genre.toLowerCase().includes(ql)).slice(0,6),
+    playlists:PLAYLISTS.filter(p=>p.name.toLowerCase().includes(ql)||p.desc.toLowerCase().includes(ql)).slice(0,4),
+    events:EVENTS.filter(e=>e.name.toLowerCase().includes(ql)||e.type.toLowerCase().includes(ql)).slice(0,3),
+    artists:ARTISTS.filter(a=>a.name.toLowerCase().includes(ql)||a.genre.toLowerCase().includes(ql)).slice(0,4),
+  }:null;
+  const hasRes=res&&Object.values(res).some(r=>r.length>0);
+  const cats=[{l:'Bollywood',e:'🎬',c:'#EF4444'},{l:'Punjabi',e:'🎵',c:'#F59E0B'},{l:'Indie',e:'🎸',c:'#8B5CF6'},{l:'Lo-Fi',e:'☕',c:'#10B981'},{l:'EDM',e:'⚡',c:'#3B82F6'},{l:'Hip-Hop',e:'🎤',c:'#EC4899'},{l:'Rock',e:'🤘',c:'#EF4444'},{l:'Classical',e:'🎻',c:'#F97316'}];
+  return<div style={{display:'flex',flexDirection:'column',gap:22}}>
+    <h1 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'2rem'}}>🔍 Search</h1>
+    <div style={{position:'relative'}}>
+      <div style={{position:'absolute',left:15,top:'50%',transform:'translateY(-50%)',color:'rgba(240,240,245,.36)',pointerEvents:'none'}}>
+        <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <input ref={iRef} type="text" placeholder="Songs, artists, playlists, events..." value={q} onChange={e=>setQ(e.target.value)} aria-label="Search" style={{paddingLeft:46}}/>
+      {q&&<button onClick={()=>setQ('')} style={{position:'absolute',right:13,top:'50%',transform:'translateY(-50%)',fontSize:20,color:'rgba(240,240,245,.38)',background:'none',border:'none',cursor:'pointer'}} aria-label="Clear">×</button>}
+    </div>
+    {ql&&res&&<div className="afd" style={{display:'flex',flexDirection:'column',gap:22}}>
+      {!hasRes&&<div style={{textAlign:'center',padding:'55px 0',color:'rgba(240,240,245,.38)'}}>
+        <div style={{fontSize:46}}>🎵</div><p style={{marginTop:11}}>No results for "{q}"</p>
+      </div>}
+      {res.songs.length>0&&<div>
+        <SecHdr title="Songs"/>
+        <div className="glass" style={{borderRadius:20,padding:'8px 4px'}}>{res.songs.map((s,i)=><SongRow key={s.id} song={s} idx={i} arr={res.songs}/>)}</div>
+      </div>}
+      {res.artists.length>0&&<div><SecHdr title="Artists"/><HScroll>{res.artists.map(a=><ArCard key={a.id} artist={a}/>)}</HScroll></div>}
+      {res.playlists.length>0&&<div>
+        <SecHdr title="Playlists"/>
+        <div style={{display:'flex',flexDirection:'column',gap:9}}>
+          {res.playlists.map(pl=><div key={pl.id} className="glass chov" style={{borderRadius:17,padding:11,display:'flex',alignItems:'center',gap:13,cursor:'pointer'}} onClick={()=>nav('playlist-detail',{pid:pl.id})}>
+            <div style={{width:50,height:50,borderRadius:10,overflow:'hidden',flexShrink:0}}><Img src={pl.cover} alt={pl.name}/></div>
+            <div><div style={{fontWeight:600,fontSize:14}}>{pl.em} {pl.name}</div><div style={{fontSize:12,color:'rgba(240,240,245,.38)',marginTop:2}}>{pl.songs.length} songs</div></div>
+          </div>)}
+        </div>
+      </div>}
+      {res.events.length>0&&<div>
+        <SecHdr title="Events"/>
+        <div style={{display:'flex',flexDirection:'column',gap:9}}>
+          {res.events.map(ev=><div key={ev.id} className="glass chov" style={{borderRadius:17,padding:11,display:'flex',alignItems:'center',gap:13,cursor:'pointer'}} onClick={()=>nav('event-detail',{eid:ev.id})}>
+            <div style={{width:50,height:50,borderRadius:10,overflow:'hidden',flexShrink:0}}><Img src={ev.cover} alt={ev.name}/></div>
+            <div><div style={{fontWeight:600,fontSize:14}}>{ev.name}</div><div style={{fontSize:12,color:'rgba(240,240,245,.38)',marginTop:2}}>📍 {ev.venue}</div></div>
+          </div>)}
+        </div>
+      </div>}
+    </div>}
+    {!ql&&<div>
+      <SecHdr title="Browse Categories"/>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(145px,1fr))',gap:11}}>
+        {cats.map(c=><button key={c.l} onClick={()=>setQ(c.l)} className="bp chov"
+          style={{borderRadius:18,padding:'18px 15px',textAlign:'left',fontWeight:600,fontSize:14,border:`1px solid ${c.c}18`,cursor:'pointer',
+            background:`linear-gradient(135deg,${c.c}30,${c.c}18)`,color:'#f0f0f5'}}>
+          <div style={{fontSize:26,marginBottom:7}}>{c.e}</div>{c.l}
+        </button>)}
+      </div>
+    </div>}
+  </div>;
+}
+
+// ─── FAVORITES ────────────────────────────────────────────────────────────────
+function Favorites(){
+  const{liked,nav}=useApp();const[tab,setTab]=useState('songs');
+  const lkS=liked.songs.map(id=>SONGS.find(s=>s.id===id)).filter(Boolean);
+  const lkP=liked.playlists.map(id=>PLAYLISTS.find(p=>p.id===id)).filter(Boolean);
+  const lkE=liked.events.map(id=>EVENTS.find(e=>e.id===id)).filter(Boolean);
+  const lkA=liked.artists.map(id=>ARTISTS.find(a=>a.id===id)).filter(Boolean);
+  const tabs=[{id:'songs',l:'Songs',n:lkS.length},{id:'playlists',l:'Playlists',n:lkP.length},{id:'events',l:'Events',n:lkE.length},{id:'artists',l:'Artists',n:lkA.length}];
+  const Empty=({e,msg,act,onAct})=><div style={{textAlign:'center',padding:'65px 0'}}>
+    <div style={{fontSize:50}}>{e}</div>
+    <p style={{marginTop:13,color:'rgba(240,240,245,.42)',fontSize:15}}>{msg}</p>
+    {act&&<button onClick={onAct} className="glass bp" style={{marginTop:14,padding:'9px 22px',borderRadius:12,fontSize:14,border:'none',cursor:'pointer'}}>{act}</button>}
+  </div>;
+  return<div style={{display:'flex',flexDirection:'column',gap:22}}>
+    <h1 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'2rem'}}>❤️ Favorites</h1>
+    <div className="glass" style={{padding:4,borderRadius:14,display:'inline-flex',gap:2}}>
+      {tabs.map(t=><button key={t.id} onClick={()=>setTab(t.id)}
+        style={{padding:'8px 17px',borderRadius:10,fontSize:13,fontWeight:500,cursor:'pointer',border:'none',display:'flex',alignItems:'center',gap:5,transition:'all .2s',
+          background:tab===t.id?'rgba(255,255,255,.1)':'transparent',color:tab===t.id?'#f0f0f5':'rgba(240,240,245,.42)'}}>
+        {t.l}{t.n>0&&<span style={{fontSize:11,padding:'2px 6px',borderRadius:100,background:'rgba(139,92,246,.25)',color:'#A78BFA'}}>{t.n}</span>}
+      </button>)}
+    </div>
+    {tab==='songs'&&(lkS.length>0?<div className="glass" style={{borderRadius:20,padding:'8px 4px'}}>{lkS.map((s,i)=><SongRow key={s.id} song={s} idx={i} arr={lkS}/>)}</div>:<Empty e="🎵" msg="No liked songs yet. Heart a song to save it here." act="Discover music" onAct={()=>nav('trending')}/>)}
+    {tab==='playlists'&&(lkP.length>0?<div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(174px,1fr))',gap:18}}>{lkP.map(pl=><PlCard key={pl.id} pl={pl} onClick={()=>nav('playlist-detail',{pid:pl.id})}/>)}</div>:<Empty e="📋" msg="No liked playlists yet." act="Browse playlists" onAct={()=>nav('playlists')}/>)}
+    {tab==='events'&&(lkE.length>0?<div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(278px,1fr))',gap:14}}>{lkE.map(ev=><EvCard key={ev.id} ev={ev} onClick={()=>nav('event-detail',{eid:ev.id})}/>)}</div>:<Empty e="🎉" msg="No events saved yet." act="Browse events" onAct={()=>nav('events')}/>)}
+    {tab==='artists'&&(lkA.length>0?<HScroll>{lkA.map(a=><ArCard key={a.id} artist={a}/>)}</HScroll>:<Empty e="🎤" msg="No favorite artists yet." act="Browse artists" onAct={()=>nav('trending')}/>)}
+  </div>;
+}
+
+// ─── PROFILE ──────────────────────────────────────────────────────────────────
+function Profile(){
+  const{user,liked,recent,nav,set}=useApp();
+  const campus=CAMPUSES.find(c=>c.id===user?.campus);
+  const recS=recent.map(id=>SONGS.find(s=>s.id===id)).filter(Boolean).slice(0,5);
+  const favP=liked.playlists.map(id=>PLAYLISTS.find(p=>p.id===id)).filter(Boolean).slice(0,3);
+  const logout=()=>{
+    if(window.confirm('Reset your GBMB profile?')){
+      localStorage.removeItem('gbmb3');
+      set(()=>({user:null,page:'landing',params:{},obStep:0,obData:{name:'',campus:'',mood:'',genres:[]},song:SONGS[0],playing:false,progress:0,volume:.7,liked:{songs:[],playlists:[],events:[],artists:[]},recent:[3,8,12,1,5],queue:[1,2,3,4,5],showQ:false,notif:null}));
+    }
+  };
+  return<div style={{display:'flex',flexDirection:'column',gap:22}}>
+    <div style={{borderRadius:24,padding:'26px 22px',background:'linear-gradient(135deg,rgba(139,92,246,.16),rgba(236,72,153,.1))',border:'1px solid rgba(139,92,246,.14)'}}>
+      <div style={{display:'flex',alignItems:'center',gap:18,flexWrap:'wrap'}}>
+        <div style={{width:78,height:78,borderRadius:'50%',background:'linear-gradient(135deg,#8B5CF6,#EC4899)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:30,fontWeight:800,flexShrink:0}}>
+          {user?.name?.charAt(0)?.toUpperCase()}
+        </div>
+        <div>
+          <h1 style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:800,fontSize:'1.65rem'}}>{user?.name}</h1>
+          <div style={{fontSize:14,color:'rgba(240,240,245,.48)',marginTop:4}}>🏫 {campus?.name}</div>
+          <div style={{fontSize:14,color:'rgba(240,240,245,.48)',marginTop:2}}>🎭 Vibe: {ME[user?.mood]} {user?.mood}</div>
+          <div style={{display:'flex',flexWrap:'wrap',gap:5,marginTop:9}}>
+            {user?.genres?.map(g=><span key={g} className="tag" style={{background:'rgba(139,92,246,.2)',color:'#A78BFA'}}>{g}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:11}}>
+      {[['🎵','Liked Songs',liked.songs.length],['📋','Playlists',liked.playlists.length],['🎉','Events',liked.events.length]].map(([e,l,n])=><div key={l} className="glass" style={{borderRadius:18,padding:'16px 12px',textAlign:'center'}}>
+        <div style={{fontSize:22}}>{e}</div>
+        <div className="gt" style={{fontFamily:"'Bricolage Grotesque',sans-serif",fontWeight:700,fontSize:'1.55rem',marginTop:3}}>{n}</div>
+        <div style={{fontSize:12,color:'rgba(240,240,245,.36)',marginTop:3}}>{l}</div>
+      </div>)}
+    </div>
+    {recS.length>0&&<div>
+      <SecHdr title="Recently Played"/>
+      <div className="glass" style={{borderRadius:20,padding:'8px 4px'}}>{recS.map((s,i)=><SongRow key={s.id} song={s} idx={i} arr={recS}/>)}</div>
+    </div>}
+    {favP.length>0&&<div>
+      <SecHdr title="Favorite Playlists"/>
+      <HScroll>{favP.map(pl=><PlCard key={pl.id} pl={pl} onClick={()=>nav('playlist-detail',{pid:pl.id})}/>)}</HScroll>
+    </div>}
+    <div className="glass" style={{borderRadius:20,padding:'14px 10px'}}>
+      <div style={{fontSize:11,color:'rgba(240,240,245,.32)',padding:'0 10px 9px',letterSpacing:1.5,textTransform:'uppercase'}}>Quick Actions</div>
+      {[{l:'🎭 Change Mood',a:()=>nav('mood')},{l:'🔍 Search Music',a:()=>nav('search')},{l:'📅 Campus Events',a:()=>nav('events')},{l:'❤️ My Favorites',a:()=>nav('favorites')}].map(item=><button key={item.l} onClick={item.a}
+        style={{width:'100%',textAlign:'left',padding:'10px 12px',borderRadius:12,fontSize:14,fontWeight:500,background:'transparent',border:'none',color:'rgba(240,240,245,.72)',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'space-between',transition:'background .18s'}}
+        onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,.05)'} onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
+        {item.l}<span style={{color:'rgba(240,240,245,.22)',fontSize:16}}>›</span>
+      </button>)}
+      <div style={{borderTop:'1px solid rgba(255,255,255,.06)',marginTop:7,paddingTop:7}}>
+        <button onClick={logout} style={{width:'100%',textAlign:'left',padding:'10px 12px',borderRadius:12,fontSize:14,fontWeight:500,background:'transparent',border:'none',color:'#F87171',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'space-between',transition:'background .18s'}}
+          onMouseEnter={e=>e.currentTarget.style.background='rgba(239,68,68,.1)'} onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
+          🚪 Reset Profile<span style={{color:'rgba(248,113,113,.28)',fontSize:16}}>›</span>
+        </button>
+      </div>
+    </div>
+  </div>;
+}
+
+// ─── APP ──────────────────────────────────────────────────────────────────────
+function AppContent(){
+  const{user,page,params}=useApp();
+  if(!user&&page==='landing')return<Landing/>;
+  if(!user||page==='onboarding')return<Onboarding/>;
+  const render=()=>{
+    switch(page){
+      case 'home':return<Home/>;
+      case 'trending':return<Trending/>;
+      case 'mood':return<MoodPage/>;
+      case 'playlists':return<Playlists/>;
+      case 'playlist-detail':return<PlaylistDetail pid={params.pid}/>;
+      case 'events':return<Events/>;
+      case 'event-detail':return<EventDetail eid={params.eid}/>;
+      case 'search':return<Search/>;
+      case 'favorites':return<Favorites/>;
+      case 'profile':return<Profile/>;
+      default:return<Home/>;
+    }
+  };
+  return<div style={{minHeight:'100vh'}}>
+    <Sidebar/>
+    <div style={{paddingBottom:160}} className="lg:pl-60">
+      <main style={{maxWidth:952,margin:'0 auto',padding:'30px 18px'}} className="asc">{render()}</main>
+    </div>
+    <BottomNav/>
+    <Player/>
+    <Notif/>
+  </div>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<AppProvider><AppContent/></AppProvider>);
+</script>
+</body>
+</html>
